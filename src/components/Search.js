@@ -4,7 +4,9 @@ function Search() {
   return (
     <di>
       <input type="text" />
-      <span data-testid="home-initial-message">Digite algum termo de pesquisa ou escolha uma categoria.</span>
+      <span data-testid="home-initial-message">
+        Digite algum termo de pesquisa ou escolha uma categoria.
+      </span>
     </di>
   );
 }
