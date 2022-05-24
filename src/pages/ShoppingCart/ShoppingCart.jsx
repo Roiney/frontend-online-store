@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './ShoppingCart.css';
 
 class ShoopingCart extends React.Component {
@@ -10,6 +11,7 @@ class ShoopingCart extends React.Component {
     const { hasItems } = this.state;
     return (
       <div>
+        <Link to="/">Home</Link>
         {
           hasItems ? (
             <div>
