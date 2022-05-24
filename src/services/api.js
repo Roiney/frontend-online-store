@@ -53,5 +53,3 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
     return tudo;
   }
 }
-
-export default getProductsFromCategoryAndQuery;
