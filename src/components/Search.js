@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductCategory from './ProductCategory';
+import Categories from './Categories';
 
 function Search() {
   return (
@@ -11,6 +12,7 @@ function Search() {
         Digite algum termo de pesquisa ou escolha uma categoria.
       </span>
       <ProductCategory />
+      <Categories />
     </div>
   );
 }
