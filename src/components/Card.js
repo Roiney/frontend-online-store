@@ -1,12 +1,17 @@
 import React from 'react';
 
-function Card() {
-    return ( 
-        <div>
-            <h2>{ nameProduct }</h2>
-            <img></img>
-        </div>
-     );
+class Card extends React.Component {
+  render() {
+    const { title, price, imagem } = this.props;
+    return (
+      <div>
+        <h1 data-testid="product">{ title }</h1>
+        <p>{ price }</p>
+        <img></img>
+      </div>
+
+    );
+  }
 }
 
 export default Card;
