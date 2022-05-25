@@ -7,6 +7,7 @@ class ProductDetails extends React.Component {
   state = {
     produto: {},
     atributos: [],
+    imagem: '',
   }
 
   async componentDidMount() {
@@ -14,13 +15,14 @@ class ProductDetails extends React.Component {
   }
 
   fetchProduct = async () => {
-    // const { match: { params: { id } } } = this.props;
     const id = 'MLB2187832413';
     const url = `https://api.mercadolibre.com/items/${id}`;
     const response = await fetch(url);
     const produto = await response.json();
-    console.log(produto);
-    this.setState({ produto, atributos: produto.attributes });
+    this.setState({ produto,
+      atributos: produto.attributes,
+      imagem: produto.pictures.find((_picture, index) => index === 0).url,
+    });
   }
 
   render() {
@@ -29,11 +31,11 @@ class ProductDetails extends React.Component {
         title,
         price,
         original_price: totalPrice,
-        thumbnail,
         currency_id: currency,
         available_quantity: quantidade,
       },
       atributos,
+      imagem,
     } = this.state;
     return (
       <section className="container-product">
@@ -41,7 +43,7 @@ class ProductDetails extends React.Component {
         <Link to="/carrinho">Carrinho de compras</Link>
         <div className="container-image-description">
           <div className="image-product">
-            <img src={ thumbnail } alt="Imagem do produto" />
+            <img src={ imagem } alt="Imagem do produto" />
           </div>
           <div className="details-product">
             <h3 data-testid="product-detail-name">{ title }</h3>
