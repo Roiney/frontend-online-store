@@ -4,13 +4,17 @@ import { getCategories } from '../services/api';
 import './Categories.css';
 
 class Categories extends React.Component {
+  state = {
+    categoryList: [],
+  }
+
   async componentDidMount() {
     const response = await getCategories();
     this.setState({ categoryList: response });
   }
 
   render() {
-    const { handleClick } = this.props;
+    const { handleApertar } = this.props;
     const { categoryList } = this.state;
     return (
       <aside className="categories-container">
@@ -22,7 +26,7 @@ class Categories extends React.Component {
                 type="radio"
                 value={ name }
                 name="categories"
-                onClick={ handleClick() }
+                onClick={ handleApertar }
               />
               { name }
             </label>
@@ -34,7 +38,7 @@ class Categories extends React.Component {
 }
 
 Categories.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  handleApertar: PropTypes.func.isRequired,
 };
 
 export default Categories;
