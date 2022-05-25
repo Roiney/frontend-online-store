@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../components/Card';
 import Categories from '../components/Categories';
-import '../components/Categories.css';
 
 class Search extends React.Component {
   constructor(props) {
@@ -20,15 +19,12 @@ class Search extends React.Component {
     this.setState({ [name]: value });
   };
 
-  handleClick = async (event) => {
-    const { target: { value } } = event;
-    const categoria = value;
+  handleClick = async () => {
     const { inputValue } = this.state;
     const APIResponse = await getProductsFromCategoryAndQuery(
-      categoria,
+      undefined,
       inputValue,
     );
-    console.log(categoria);
     const response = APIResponse.results;
     this.setState({ produtos: response });
   };
@@ -50,14 +46,13 @@ class Search extends React.Component {
         <button data-testid="query-button" onClick={ this.handleClick } type="button">
           Pesquisar
         </button>
-        <Categories handleApertar={ this.handleClick } />
         <p>
           <span data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </span>
         </p>
-        <Categories />        
-        <div className="items">
+        <Categories />
+        <div>
           {produtos.map((itens) => (
             <Card
               id={ itens.id }
