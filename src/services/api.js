@@ -36,7 +36,7 @@ const detalhes = async (a) => {
 
 export async function getProductsFromCategoryAndQuery(categoryId, query) {
   // Implemente aqui! Quando o fizer, descomente os parâmetros que essa função recebe
-  if (query === undefined) {
+  if (query.length === 0) {
     const category = await categoria(categoryId);
     return category;
   }
@@ -44,11 +44,11 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
     const word = await termo(query);
     return word;
   }
-  if (query === undefined || categoryId === undefined) {
+  if (query.length === 0 || categoryId === undefined) {
     const info = await detalhes(query);
     return info;
   }
-  if (query !== undefined || categoryId !== undefined) {
+  if (query.length > 0 || categoryId !== undefined) {
     const tudo = await categoryTermo(categoryId, query);
     return tudo;
   }
