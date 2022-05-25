@@ -21,8 +21,8 @@ class Search extends React.Component {
   };
 
   handleClick = async (event) => {
-    const { target: { value } } = event;
-    const categoria = value;
+    const { target: { id } } = event;
+    const categoria = id;
     const { inputValue } = this.state;
     const APIResponse = await getProductsFromCategoryAndQuery(
       categoria,
