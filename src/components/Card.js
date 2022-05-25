@@ -8,7 +8,7 @@ class Card extends React.Component {
     const { title, price, thumbnail, id } = this.props;
     return (
       <div data-testid="product">
-        <Link to={ `/produto/${id}` }>
+        <Link data-testid="product-detail-link" to={ `/produto/${id}` }>
           <h1>{ title }</h1>
           <p>{ price }</p>
           <img alt={ thumbnail } src={ thumbnail } />
