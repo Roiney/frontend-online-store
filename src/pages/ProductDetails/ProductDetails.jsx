@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ProductDetails.css';
 import { Link } from 'react-router-dom';
+import { saveProduct } from '../../services/carrinhoCompras';
 
 class ProductDetails extends React.Component {
   state = {
@@ -25,6 +26,11 @@ class ProductDetails extends React.Component {
     });
   }
 
+  handleClick = () => {
+    const { produto } = this.state;
+    saveProduct(produto);
+  }
+
   render() {
     const {
       produto: {
@@ -40,7 +46,7 @@ class ProductDetails extends React.Component {
     return (
       <section className="container-product">
         <Link to="/">Home</Link>
-        <Link to="/carrinho">Carrinho de compras</Link>
+        <Link to="/carrinho" data-testid="shopping-cart-button">Carrinho de compras</Link>
         <div className="container-image-description">
           <div className="image-product">
             <img src={ imagem } alt="Imagem do produto" />
@@ -62,7 +68,13 @@ class ProductDetails extends React.Component {
           <div className="add-carrinho">
             <p>{ `De: ${currency} ${totalPrice}` }</p>
             <p>{ `Por: ${currency} ${price}` }</p>
-            <button type="button">Adicionar ao carrinho</button>
+            <button
+              data-testid="product-detail-add-to-cart"
+              type="button"
+              onClick={ this.handleClick }
+            >
+              Adicionar ao carrinho
+            </button>
           </div>
         </section>
       </section>

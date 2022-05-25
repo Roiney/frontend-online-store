@@ -64,6 +64,7 @@ class Search extends React.Component {
               price={ itens.price }
               title={ itens.title }
               thumbnail={ itens.thumbnail }
+              produto={ itens }
             />
           ))}
         </div>

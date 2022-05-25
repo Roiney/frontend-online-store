@@ -2,8 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Categories.css';
+import { saveProduct } from '../services/carrinhoCompras';
 
 class Card extends React.Component {
+  handleClick = async () => {
+    const { produto } = this.props;
+    saveProduct(produto);
+  }
+
   render() {
     const { title, price, thumbnail, id } = this.props;
     return (
@@ -13,6 +19,13 @@ class Card extends React.Component {
           <p>{ price }</p>
           <img alt={ thumbnail } src={ thumbnail } />
         </Link>
+        <button
+          data-testid="product-add-to-cart"
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
 
     );
@@ -24,6 +37,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  produto: PropTypes.shape().isRequired,
 };
 
 export default Card;
