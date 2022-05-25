@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../components/Card';
+import Categories from '../components/Categories';
 
 class Search extends React.Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class Search extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </span>
         </p>
+        <Categories />
         <div>
           {produtos.map((itens) => (
             <Card
