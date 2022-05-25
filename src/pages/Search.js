@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../components/Card';
 
-class Search extends React.Component {
+class tSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
