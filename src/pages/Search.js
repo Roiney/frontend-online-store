@@ -28,7 +28,6 @@ class Search extends React.Component {
       categoria,
       inputValue,
     );
-    console.log(categoria);
     const response = APIResponse.results;
     this.setState({ produtos: response });
   };

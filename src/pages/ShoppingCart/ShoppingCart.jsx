@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { readSavedProducts } from '../../services/carrinhoCompras';
+import { readSavedProducts } from '../../services/storageCart';
 import './ShoppingCart.css';
 
 class ShoopingCart extends React.Component {
@@ -12,7 +12,7 @@ class ShoopingCart extends React.Component {
 
   componentDidMount() {
     const produtos = readSavedProducts();
-    this.setState({ hasItems: true, produtos });
+    if (produtos.length > 0) this.setState({ hasItems: true, produtos });
   }
 
   render() {

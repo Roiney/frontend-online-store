@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ProductDetails.css';
 import { Link } from 'react-router-dom';
-import { saveProduct } from '../../services/carrinhoCompras';
+import { saveProduct } from '../../services/storageCart';
 
 class ProductDetails extends React.Component {
   state = {
