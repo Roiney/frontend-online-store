@@ -51,10 +51,9 @@ class Search extends React.Component {
           </span>
         </p>
         <div>
-          {produtos.map((itens) => (
+          {produtos.map((itens, index) => (
             <Card
-              id={ itens.id }
-              Key={ itens.id }
+              Key={ itens.index }
               price={ itens.price }
               title={ itens.title }
               thumbnail={ itens.thumbnail }
