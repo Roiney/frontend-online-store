@@ -53,7 +53,7 @@ class ProductDetails extends React.Component {
               className="link-cart"
             >
               <span>Carrinho de compras</span>
-              {/* CONTADOR DE ITEMS NO CARRINHO */}
+              {/* LOCAL DO CONTADOR DE ITEMS NO CARRINHO */}
               <span>{'0 >'}</span>
             </Link>
           </div>
@@ -78,7 +78,7 @@ class ProductDetails extends React.Component {
         </section>
 
         <section className="container-evaluation">
-
+          {/* LOCAL DO FORMULARIO DE AVALIAÇÃO */}
           <h1>Formulario de avaliação</h1>
 
           <div className="add-carrinho">

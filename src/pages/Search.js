@@ -61,7 +61,7 @@ class Search extends React.Component {
               className="link-cart"
             >
               <span>Carrinho de compras</span>
-              {/* CONTADOR DE ITEMS NO CARRINHO */}
+              {/* LOCAS DO CONTADOR DE ITEMS NO CARRINHO */}
               <span>{'0 >'}</span>
             </Link>
             <article className="product-conteiner">
