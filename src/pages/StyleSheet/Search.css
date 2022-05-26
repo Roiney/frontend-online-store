@@ -1,8 +1,8 @@
-.main-container, .control-link-container {
+.main-container, .content-container {
   display: flex;
 }
 
-.control-link-container {
+.content-container {
   align-content: flex-start;
   flex-wrap: wrap;
   width: 100%;

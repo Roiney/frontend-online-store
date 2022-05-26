@@ -26,6 +26,7 @@ class ProductDetails extends React.Component {
     });
   }
 
+  // Salva produto no LocalStorage
   handleClick = () => {
     const { produto } = this.state;
     saveProduct(produto);
@@ -43,13 +44,14 @@ class ProductDetails extends React.Component {
     } = this.state;
     return (
       <section className="container-product">
+        {/* LINKS DE NAVEGAÇÃO */}
         <nav className="container-nav">
           <Link to="/" className="link-home">{'< Home'}</Link>
           <div>
             <Link
               to="/carrinho"
               data-testid="shopping-cart-button"
-              // CLASSE DO SEARCH.CSS
+              // CLASSE ESTILIZADA NO SEARCH.CSS
               className="link-cart"
             >
               <span>Carrinho de compras</span>
@@ -58,7 +60,7 @@ class ProductDetails extends React.Component {
             </Link>
           </div>
         </nav>
-
+        {/* DETALHES DO PRODUTO */}
         <section className="container-info-product">
           <div className="container-image">
             <img src={ imagem } alt="Imagem do produto" />
@@ -76,7 +78,7 @@ class ProductDetails extends React.Component {
             </ul>
           </div>
         </section>
-
+        {/* FORMULARIO DE AVALIAÇÃO E BOTÃO ADD CARRINHO */}
         <section className="container-evaluation">
           {/* LOCAL DO FORMULARIO DE AVALIAÇÃO */}
           <h1>Formulario de avaliação</h1>
