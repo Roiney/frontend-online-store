@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../components/Card';
 import Categories from '../components/Categories';
-import '../components/Categories.css';
+import './StyleSheet/Search.css';
 
 class Search extends React.Component {
   constructor(props) {
@@ -36,37 +36,54 @@ class Search extends React.Component {
     const { inputValue, produtos } = this.state;
     return (
       <div>
-        <Link to="/carrinho" data-testid="shopping-cart-button">
-          Carrinho de compras
-        </Link>
-        <input
-          type="text"
-          data-testid="query-input"
-          name="inputValue"
-          value={ inputValue }
-          onChange={ this.handleChange }
-        />
-        <button data-testid="query-button" onClick={ this.handleClick } type="button">
-          Pesquisar
-        </button>
-        <Categories handleApertar={ this.handleClick } />
-        <p>
-          <span data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </span>
-        </p>
-        <div className="items">
-          {produtos.map((itens) => (
-            <Card
-              id={ itens.id }
-              key={ itens.id }
-              price={ itens.price }
-              title={ itens.title }
-              thumbnail={ itens.thumbnail }
-              produto={ itens }
-            />
-          ))}
-        </div>
+        <section className="main-container">
+          <Categories handleApertar={ this.handleClick } />
+          <div className="control-link-container">
+            <div className="control-search">
+              <input
+                type="text"
+                data-testid="query-input"
+                name="inputValue"
+                value={ inputValue }
+                onChange={ this.handleChange }
+              />
+              <button
+                data-testid="query-button"
+                onClick={ this.handleClick }
+                type="button"
+              >
+                Pesquisar
+              </button>
+            </div>
+            <Link
+              to="/carrinho"
+              data-testid="shopping-cart-button"
+              className="link-cart"
+            >
+              <span>Carrinho de compras</span>
+              <span>0</span>
+            </Link>
+            {/* CONTADOR DE ITEMS NO CARRINHO */}
+            {/* <span>0</span> */}
+            <article className="product-conteiner">
+              <p className="initial-message" data-testid="home-initial-message">
+                Digite algum termo de pesquisa ou escolha uma categoria.
+              </p>
+              <div className="product-list">
+                {produtos.map((itens) => (
+                  <Card
+                    id={ itens.id }
+                    key={ itens.id }
+                    price={ itens.price }
+                    title={ itens.title }
+                    thumbnail={ itens.thumbnail }
+                    produto={ itens }
+                  />
+                ))}
+              </div>
+            </article>
+          </div>
+        </section>
       </div>
     );
   }

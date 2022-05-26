@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
-import './Categories.css';
+import './StyleSheet/Categories.css';
 
 class Categories extends React.Component {
   state = {
@@ -18,6 +18,7 @@ class Categories extends React.Component {
     const { categoryList } = this.state;
     return (
       <aside className="categories-container">
+        <h3>Categorias</h3>
         {
           categoryList.map(({ id, name }) => (
             <label key={ id } htmlFor={ id } data-testid="category">
