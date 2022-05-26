@@ -61,10 +61,9 @@ class Search extends React.Component {
               className="link-cart"
             >
               <span>Carrinho de compras</span>
-              <span>0</span>
+              {/* CONTADOR DE ITEMS NO CARRINHO */}
+              <span>{'0 >'}</span>
             </Link>
-            {/* CONTADOR DE ITEMS NO CARRINHO */}
-            {/* <span>0</span> */}
             <article className="product-conteiner">
               <p className="initial-message" data-testid="home-initial-message">
                 Digite algum termo de pesquisa ou escolha uma categoria.

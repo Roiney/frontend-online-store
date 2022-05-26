@@ -37,37 +37,53 @@ class ProductDetails extends React.Component {
         title,
         price,
         original_price: totalPrice,
-        currency_id: currency,
-        available_quantity: quantidade,
       },
       atributos,
       imagem,
     } = this.state;
     return (
       <section className="container-product">
-        <Link to="/">Home</Link>
-        <Link to="/carrinho" data-testid="shopping-cart-button">Carrinho de compras</Link>
-        <div className="container-image-description">
-          <div className="image-product">
+        <nav className="container-nav">
+          <Link to="/" className="link-home">{'< Home'}</Link>
+          <div>
+            <Link
+              to="/carrinho"
+              data-testid="shopping-cart-button"
+              // CLASSE DO SEARCH.CSS
+              className="link-cart"
+            >
+              <span>Carrinho de compras</span>
+              {/* CONTADOR DE ITEMS NO CARRINHO */}
+              <span>{'0 >'}</span>
+            </Link>
+          </div>
+        </nav>
+
+        <section className="container-info-product">
+          <div className="container-image">
             <img src={ imagem } alt="Imagem do produto" />
           </div>
-          <div className="details-product">
-            <h3 data-testid="product-detail-name">{ title }</h3>
-            <p>{ `${currency} ${price}` }</p>
-            <p>{`Estoque: ${quantidade}`}</p>
+
+          <div className="container-details">
+            <h2 data-testid="product-detail-name">{ title }</h2>
+            <p>{ `R$ ${price}` }</p>
+            <ul className="details">
+              {
+                atributos.map(({ name, value_name: value, id }) => (
+                  <li key={ id }>{` ${name}: ${value} `}</li>
+                ))
+              }
+            </ul>
           </div>
-        </div>
-        <section className="attr-buy">
-          <ul className="atributos">
-            {
-              atributos.map(({ name, value_name: value, id }) => (
-                <li key={ id }>{` ${name}: ${value} `}</li>
-              ))
-            }
-          </ul>
+        </section>
+
+        <section className="container-evaluation">
+
+          <h1>Formulario de avaliação</h1>
+
           <div className="add-carrinho">
-            <p>{ `De: ${currency} ${totalPrice}` }</p>
-            <p>{ `Por: ${currency} ${price}` }</p>
+            <p>{ `De: R$ ${totalPrice}` }</p>
+            <p>{ `Por: R$ ${price}` }</p>
             <button
               data-testid="product-detail-add-to-cart"
               type="button"
@@ -77,6 +93,7 @@ class ProductDetails extends React.Component {
             </button>
           </div>
         </section>
+
       </section>
     );
   }
