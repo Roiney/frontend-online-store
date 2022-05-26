@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { readSavedProducts } from '../services/storageCart';
 import './StyleSheet/ShoppingCart.css';
 
