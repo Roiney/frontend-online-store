@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { readSavedProducts } from '../../services/storageCart';
-import './ShoppingCart.css';
+import { readSavedProducts } from '../services/storageCart';
+import './StyleSheet/ShoppingCart.css';
 
 class ShoopingCart extends React.Component {
   state = {

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import './Categories.css';
 import { saveProduct } from '../services/storageCart';
+import './StyleSheet/Card.css';
 
 class Card extends React.Component {
   handleClick = async () => {
@@ -13,11 +13,17 @@ class Card extends React.Component {
   render() {
     const { title, price, thumbnail, id } = this.props;
     return (
-      <div data-testid="product">
-        <Link data-testid="product-detail-link" to={ `/produto/${id}` }>
-          <h1>{ title }</h1>
-          <p>{ price }</p>
+      <div className="product-container" data-testid="product">
+        <Link
+          className="product"
+          data-testid="product-detail-link"
+          to={ `/produto/${id}` }
+        >
+          <div>
+            <h1>{ title }</h1>
+          </div>
           <img alt={ thumbnail } src={ thumbnail } />
+          <p>{ `R$ ${price}` }</p>
         </Link>
         <button
           data-testid="product-add-to-cart"
