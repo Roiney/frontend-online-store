@@ -24,6 +24,11 @@
   width: 160px;
 }
 
+.product-container button:hover {
+  background-color: rgb(58, 87, 173);
+  cursor: pointer;
+}
+
 .product {
   align-items: center;
   color: black;
