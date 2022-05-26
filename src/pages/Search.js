@@ -21,14 +21,13 @@ class Search extends React.Component {
   };
 
   handleClick = async (event) => {
-    const { target: { value } } = event;
-    const categoria = value;
+    const { target: { id } } = event;
+    const categoria = id;
     const { inputValue } = this.state;
     const APIResponse = await getProductsFromCategoryAndQuery(
       categoria,
       inputValue,
     );
-    console.log(categoria);
     const response = APIResponse.results;
     this.setState({ produtos: response });
   };
@@ -64,6 +63,7 @@ class Search extends React.Component {
               price={ itens.price }
               title={ itens.title }
               thumbnail={ itens.thumbnail }
+              produto={ itens }
             />
           ))}
         </div>
