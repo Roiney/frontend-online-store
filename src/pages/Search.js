@@ -7,13 +7,10 @@ import Categories from '../components/Categories';
 import './StyleSheet/Search.css';
 
 class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputValue: '',
-      produtos: [],
-    };
-  }
+  state = {
+    inputValue: '',
+    produtos: [],
+  };
 
   // Controla campo de pesquisa
   handleChange = ({ target }) => {
