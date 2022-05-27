@@ -4,6 +4,7 @@ import Search from './pages/Search';
 import ShoopingCart from './pages/ShoppingCart';
 import './App.css';
 import ProductDetails from './pages/ProductDetails';
+import checkout from './pages/checkout';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         />
         <Route path="/carrinho" component={ ShoopingCart } />
         <Route exact path="/" component={ Search } />
+        <Route path="/checkout" component={ checkout } />
       </Switch>
     </BrowserRouter>
   );
