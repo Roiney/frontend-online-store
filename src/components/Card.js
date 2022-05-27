@@ -6,8 +6,9 @@ import './StyleSheet/Card.css';
 
 class Card extends React.Component {
   handleClick = async () => {
-    const { produto } = this.props;
+    const { produto, handleAmount } = this.props;
     saveProduct(produto);
+    handleAmount();
   }
 
   render() {
@@ -44,6 +45,7 @@ Card.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   produto: PropTypes.shape().isRequired,
+  handleAmount: PropTypes.func.isRequired,
 };
 
 export default Card;
