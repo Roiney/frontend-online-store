@@ -13,19 +13,30 @@ class ShoopingCart extends React.Component {
     produtos: [],
     filteredProducts: [],
     hasItems: false,
+    totalPrice: 0,
   }
 
   componentDidMount() {
     const produtos = readSavedProducts();
     const filteredProducts = this.filterProducts(produtos);
+    const totalPrice = this.calculateTotalPrice(produtos);
     if (produtos.length > 0) {
       this.setState({
         hasItems: true,
         produtos,
         filteredProducts,
+        totalPrice,
       });
     }
   }
+
+  // Calcula valor total dos produtos
+  calculateTotalPrice = (products) => products
+    .reduce((accPrice, { price }) => {
+      let novoAcc = accPrice;
+      novoAcc += price;
+      return novoAcc;
+    }, 0);
 
   // Filtra os produtos para exibir na tela sem repetição
   filterProducts = (products) => products
@@ -45,6 +56,7 @@ class ShoopingCart extends React.Component {
       saveProduct(productAdd);
       this.setState((prevState) => ({
         produtos: [...prevState.produtos, productAdd],
+        totalPrice: prevState.totalPrice + productAdd.price,
       }));
     }
   }
@@ -58,8 +70,10 @@ class ShoopingCart extends React.Component {
     if (quantityProduct > 1) {
       removeProduct(productRemove);
       const newCartProducts = readSavedProducts();
+      const totalPrice = this.calculateTotalPrice(newCartProducts);
       this.setState({
         produtos: [...newCartProducts],
+        totalPrice,
       });
     }
   }
@@ -70,6 +84,7 @@ class ShoopingCart extends React.Component {
     const productDelete = filteredProducts.find(({ id }) => idProduct === id);
     removeAllProduct(productDelete);
     const newProducts = readSavedProducts();
+    const totalPrice = this.calculateTotalPrice(newProducts);
     const newFilteredProducts = this.filterProducts(newProducts);
     if (newProducts.length === 0) {
       this.setState({ hasItems: false });
@@ -77,11 +92,12 @@ class ShoopingCart extends React.Component {
     this.setState({
       produtos: [...newProducts],
       filteredProducts: [...newFilteredProducts],
+      totalPrice,
     });
   }
 
   render() {
-    const { hasItems, produtos, filteredProducts } = this.state;
+    const { hasItems, produtos, filteredProducts, totalPrice } = this.state;
     return (
       <div>
         <nav className="container-cartNavigation">
@@ -130,11 +146,11 @@ class ShoopingCart extends React.Component {
                         +
                       </button>
                     </div>
-                    <span>{ `R$ ${price}` }</span>
+                    <span>{ `R$ ${price.toFixed(2)}` }</span>
                   </div>
                 ))
               }
-              <p>Valor total da Compra</p>
+              <p>{ `Valor total da Compra R$ ${totalPrice.toFixed(2)}` }</p>
               <Link
                 to="/checkout"
                 data-testid="checkout-products"

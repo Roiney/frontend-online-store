@@ -80,7 +80,12 @@
   border: 1px solid black;
   color: black;
   display: inline-block;
+  margin-top: 15px;
   padding: 10px;
   text-decoration: none;
+}
 
+.checkout-link:hover {
+  background-color: black;
+  color: white;
 }
