@@ -1,7 +1,7 @@
 import React from 'react';
 import { readSavedProducts } from '../services/storageCart';
 
-class checkout extends React.Component {
+class Checkout extends React.Component {
   state = {
     hasItems: false,
   };
@@ -73,4 +73,4 @@ class checkout extends React.Component {
   }
 }
 
-export default checkout;
+export default Checkout;
