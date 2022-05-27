@@ -6,35 +6,56 @@ import './StyleSheet/ShoppingCart.css';
 class ShoopingCart extends React.Component {
   state = {
     produtos: [],
+    filteredProducts: [],
     hasItems: false,
-    quantidade: 1,
   }
 
   componentDidMount() {
     const produtos = readSavedProducts();
-    if (produtos.length > 0) this.setState({ hasItems: true, produtos });
+    const filteredProducts = produtos
+      .map((produto) => JSON.stringify(produto))
+      .filter((produto, index, self) => self.indexOf(produto) === index)
+      .map((produto) => JSON.parse(produto));
+    if (produtos.length > 0) {
+      this.setState({
+        hasItems: true,
+        produtos,
+        filteredProducts,
+      });
+    }
   }
 
   render() {
-    const { hasItems, produtos, quantidade } = this.state;
+    const { hasItems, produtos, filteredProducts } = this.state;
     return (
       <div>
         <Link to="/">Home</Link>
         {
           hasItems ? (
-            <div>
+            <section>
               <h1>Items do carrinho</h1>
               {
-                produtos.map(({ title, price, thumbnail, id }) => (
+                filteredProducts.map(({ title, price, thumbnail, id }) => (
                   <div key={ id }>
-                    <h2 data-testid="shopping-cart-product-name">{ title }</h2>
+                    <button type="button">X</button>
                     <img src={ thumbnail } alt={ thumbnail } />
+                    <h2 data-testid="shopping-cart-product-name">{ title }</h2>
                     <p>{ price }</p>
-                    <p data-testid="shopping-cart-product-quantity">{ quantidade }</p>
+                    <div>
+                      <button type="button">-</button>
+                      <span
+                        data-testid="shopping-cart-product-quantity"
+                      >
+                        {
+                          produtos.filter(({ id: idProduto }) => idProduto === id).length
+                        }
+                      </span>
+                      <button type="button">+</button>
+                    </div>
                   </div>
                 ))
               }
-            </div>
+            </section>
           ) : (
             <h1
               data-testid="shopping-cart-empty-message"
