@@ -5,12 +5,28 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../components/Card';
 import Categories from '../components/Categories';
 import './StyleSheet/Search.css';
+import { readSavedProducts } from '../services/storageCart';
 
 class Search extends React.Component {
   state = {
     inputValue: '',
     produtos: [],
+    totalCarrinho: 0,
   };
+
+  // Altera a quantidade que aparece do lado do carrinho quando abrir a pagina
+  componentDidMount() {
+    this.handleAmount();
+  }
+
+  // Altera a quantidade que aparece do lado do carrinho
+  handleAmount = () => {
+    const total = readSavedProducts().length;
+    console.log(total);
+    this.setState({
+      totalCarrinho: total,
+    });
+  }
 
   // Controla campo de pesquisa
   handleChange = ({ target }) => {
@@ -32,7 +48,7 @@ class Search extends React.Component {
   };
 
   render() {
-    const { inputValue, produtos } = this.state;
+    const { inputValue, produtos, totalCarrinho } = this.state;
     return (
       <div className="main-container">
         <Categories handleApertar={ this.handleClick } />
@@ -62,7 +78,7 @@ class Search extends React.Component {
           >
             <span>Carrinho de compras</span>
             {/* LOCAS DO CONTADOR DE ITEMS NO CARRINHO */}
-            <span>{'0 >'}</span>
+            <span data-testid="shopping-cart-size">{ totalCarrinho }</span>
           </Link>
           {/* LISTAGEM DE PRODUTOS */}
           <article className="product-conteiner">
@@ -78,6 +94,7 @@ class Search extends React.Component {
                   title={ itens.title }
                   thumbnail={ itens.thumbnail }
                   produto={ itens }
+                  handleAmount={ this.handleAmount }
                 />
               ))}
             </div>
