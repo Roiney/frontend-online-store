@@ -14,6 +14,7 @@ export const removeProduct = (produto) => {
   const savedProducts = readSavedProducts();
   const strinfyProductRemove = JSON.stringify(produto);
   const stringfySavedProducts = savedProducts.map((product) => JSON.stringify(product));
+  // remove elemento da lista de produtos indexOf pega index do produto, slice remove produto "1" produto
   savedProducts.splice(stringfySavedProducts.indexOf(strinfyProductRemove), 1);
   localStorage.setItem('produtosCarrinho', JSON.stringify([...savedProducts]));
 };

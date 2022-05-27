@@ -78,11 +78,13 @@ class ShoopingCart extends React.Component {
     const { hasItems, produtos, filteredProducts } = this.state;
     return (
       <div>
-        <Link to="/">Home</Link>
+        <nav className="container-cartNavigation">
+          <Link className="link-home" to="/">{'< Home'}</Link>
+        </nav>
         {
           hasItems ? (
-            <section>
-              <h1>Items do carrinho</h1>
+            <section className="main-cart-container">
+              <h2>Carrinho de compras</h2>
               {
                 filteredProducts.map(({ title, price, thumbnail, id }) => (
                   <div className="container-cartProduct" key={ id }>
@@ -97,7 +99,7 @@ class ShoopingCart extends React.Component {
                       <img src={ thumbnail } alt={ thumbnail } />
                       <h3 data-testid="shopping-cart-product-name">{ title }</h3>
                     </div>
-                    <div>
+                    <div className="container-quantityControl">
                       <button
                         type="button"
                         data-testid="product-decrease-quantity"
