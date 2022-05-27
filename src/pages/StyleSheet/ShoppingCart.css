@@ -4,5 +4,32 @@
 
 .container-cartProduct {
   align-items: center;
+  border: 1px solid black;
   display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  width: 80%;
+}
+
+.container-cartProduct span:last-child {
+  width: 100px;
+}
+
+.container-cartImage {
+  align-items: center;
+  display: flex;
+}
+
+.container-cartImage button {
+  margin: 15px;
+}
+
+.container-cartImage img {
+  height: 90px;
+  margin-right: 15px;
+  width: 90px;
+}
+
+.container-cartImage h3 {
+  min-width: 630px;
 }

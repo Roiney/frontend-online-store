@@ -86,16 +86,17 @@ class ShoopingCart extends React.Component {
               {
                 filteredProducts.map(({ title, price, thumbnail, id }) => (
                   <div className="container-cartProduct" key={ id }>
-                    <button
-                      type="button"
-                      name={ id }
-                      onClick={ this.deleteProduct }
-                    >
-                      X
-                    </button>
-                    <img src={ thumbnail } alt={ thumbnail } />
-                    <h2 data-testid="shopping-cart-product-name">{ title }</h2>
-                    <p>{ price }</p>
+                    <div className="container-cartImage">
+                      <button
+                        type="button"
+                        name={ id }
+                        onClick={ this.deleteProduct }
+                      >
+                        X
+                      </button>
+                      <img src={ thumbnail } alt={ thumbnail } />
+                      <h3 data-testid="shopping-cart-product-name">{ title }</h3>
+                    </div>
                     <div>
                       <button
                         type="button"
@@ -121,6 +122,7 @@ class ShoopingCart extends React.Component {
                         +
                       </button>
                     </div>
+                    <span>{ `R$ ${price}` }</span>
                   </div>
                 ))
               }
