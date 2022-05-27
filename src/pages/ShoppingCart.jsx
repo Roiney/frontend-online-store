@@ -27,11 +27,13 @@ class ShoopingCart extends React.Component {
     }
   }
 
+  // Filtra os produtos para exibir na tela sem repetição
   filterProducts = (products) => products
     .map((produto) => JSON.stringify(produto))
     .filter((produto, index, self) => self.indexOf(produto) === index)
     .map((produto) => JSON.parse(produto));
 
+  // Incrementa contagem de produtos a partir do click
   increaseQuantity = ({ target: { name: idProduct } }) => {
     const { filteredProducts } = this.state;
     const productAdd = filteredProducts.find(({ id }) => idProduct === id);
@@ -41,6 +43,7 @@ class ShoopingCart extends React.Component {
     }));
   }
 
+  // Decrementa contagem de produtos a partir do click
   decreaseQuantity = ({ target: { name: idProduct } }) => {
     const { filteredProducts, produtos } = this.state;
     const quantityProduct = produtos
@@ -55,12 +58,16 @@ class ShoopingCart extends React.Component {
     }
   }
 
+  // Remove o produto totalmente do carrinho
   deleteProduct = ({ target: { name: idProduct } }) => {
     const { filteredProducts } = this.state;
     const productDelete = filteredProducts.find(({ id }) => idProduct === id);
     removeAllProduct(productDelete);
     const newProducts = readSavedProducts();
     const newFilteredProducts = this.filterProducts(newProducts);
+    if (newProducts.length === 0) {
+      this.setState({ hasItems: false });
+    }
     this.setState({
       produtos: [...newProducts],
       filteredProducts: [...newFilteredProducts],
