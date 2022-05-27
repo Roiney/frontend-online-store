@@ -12,6 +12,14 @@ export const saveProduct = (produto) => {
 
 export const removeProduct = (produto) => {
   const savedProducts = readSavedProducts();
+  const strinfyProductRemove = JSON.stringify(produto);
+  const stringfySavedProducts = savedProducts.map((product) => JSON.stringify(product));
+  savedProducts.splice(stringfySavedProducts.indexOf(strinfyProductRemove), 1);
+  localStorage.setItem('produtosCarrinho', JSON.stringify([...savedProducts]));
+};
+
+export const removeAllProduct = (produto) => {
+  const savedProducts = readSavedProducts();
   const newSavedProducts = savedProducts.filter(({ id }) => id !== produto.id);
-  localStorage.setItem('produtoCarrinho', JSON.stringify([...newSavedProducts]));
+  localStorage.setItem('produtosCarrinho', JSON.stringify([...newSavedProducts]));
 };
