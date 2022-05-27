@@ -8,6 +8,7 @@ class ProductDetails extends React.Component {
   state = {
     produto: {},
     atributos: [],
+    availableQuantity: '',
     imagem: '',
   }
 
@@ -23,6 +24,7 @@ class ProductDetails extends React.Component {
     this.setState({ produto,
       atributos: produto.attributes,
       imagem: produto.pictures.find((_picture, index) => index === 0).url,
+      availableQuantity: produto.available_quantity,
     });
   }
 
@@ -41,6 +43,7 @@ class ProductDetails extends React.Component {
       },
       atributos,
       imagem,
+      availableQuantity,
     } = this.state;
     return (
       <section className="container-product">
@@ -75,6 +78,13 @@ class ProductDetails extends React.Component {
                   <li key={ id }>{` ${name}: ${value} `}</li>
                 ))
               }
+            </ul>
+            <ul>
+              <li>
+                Quantidade disponível
+                { availableQuantity }
+
+              </li>
             </ul>
           </div>
         </section>

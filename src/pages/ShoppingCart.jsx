@@ -35,12 +35,18 @@ class ShoopingCart extends React.Component {
 
   // Incrementa contagem de produtos a partir do click
   increaseQuantity = ({ target: { name: idProduct } }) => {
-    const { filteredProducts } = this.state;
+    const { filteredProducts, produtos } = this.state;
     const productAdd = filteredProducts.find(({ id }) => idProduct === id);
-    saveProduct(productAdd);
-    this.setState((prevState) => ({
-      produtos: [...prevState.produtos, productAdd],
-    }));
+    const quantityProduct = produtos
+      .filter(({ id: idProduto }) => idProduto === idProduct).length;
+    console.log(productAdd.available_quantity);
+    console.log(quantityProduct);
+    if (quantityProduct < productAdd.available_quantity) {
+      saveProduct(productAdd);
+      this.setState((prevState) => ({
+        produtos: [...prevState.produtos, productAdd],
+      }));
+    }
   }
 
   // Decrementa contagem de produtos a partir do click
