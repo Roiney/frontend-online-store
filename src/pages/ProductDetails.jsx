@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './StyleSheet/ProductDetails.css';
 import { Link } from 'react-router-dom';
-import { saveProduct } from '../services/storageCart';
+import { saveProduct, readSavedProducts } from '../services/storageCart';
 
 class ProductDetails extends React.Component {
   state = {
@@ -10,9 +10,12 @@ class ProductDetails extends React.Component {
     atributos: [],
     availableQuantity: '',
     imagem: '',
+    totalCarrinho: 0,
   }
 
   async componentDidMount() {
+    // Altera a quantidade que aparece do lado do carrinho quando abrir a pagina
+    this.handleAmount();
     await this.fetchProduct();
   }
 
@@ -34,6 +37,14 @@ class ProductDetails extends React.Component {
     saveProduct(produto);
   }
 
+  // Altera a quantidade que aparece do lado do carrinho
+  handleAmount = () => {
+    const total = readSavedProducts().length;
+    this.setState({
+      totalCarrinho: total,
+    });
+  }
+
   render() {
     const {
       produto: {
@@ -44,6 +55,7 @@ class ProductDetails extends React.Component {
       atributos,
       imagem,
       availableQuantity,
+      totalCarrinho,
     } = this.state;
     return (
       <section className="container-product">
@@ -59,7 +71,7 @@ class ProductDetails extends React.Component {
             >
               <span>Carrinho de compras</span>
               {/* LOCAL DO CONTADOR DE ITEMS NO CARRINHO */}
-              <span>{'0 >'}</span>
+              <span data-testid="shopping-cart-size">{ totalCarrinho }</span>
             </Link>
           </div>
         </nav>
