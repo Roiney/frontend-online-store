@@ -4,6 +4,7 @@
 
 .main-cart-container {
   margin: 15px;
+  min-height: 500px;
 }
 
 .container-cartNavigation {
@@ -14,10 +15,9 @@
 
 .container-cartProduct {
   align-items: center;
-  border: 1px solid black;
   display: flex;
   justify-content: space-between;
-  margin: 15px 0;
+  margin: 20px 0;
   width: 80%;
 }
 
@@ -74,4 +74,13 @@
 
 .container-cartImage h3 {
   min-width: 590px;
+}
+
+.checkout-link {
+  border: 1px solid black;
+  color: black;
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+
 }

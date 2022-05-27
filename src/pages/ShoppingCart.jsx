@@ -134,7 +134,14 @@ class ShoopingCart extends React.Component {
                   </div>
                 ))
               }
-              <Link to="/checkout" data-testid="checkout-products">Finalizar Compra</Link>
+              <p>Valor total da Compra</p>
+              <Link
+                to="/checkout"
+                data-testid="checkout-products"
+                className="checkout-link"
+              >
+                Finalizar Compra
+              </Link>
             </section>
           ) : (
             <h1
