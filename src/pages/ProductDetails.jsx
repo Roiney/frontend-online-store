@@ -71,7 +71,7 @@ class ProductDetails extends React.Component {
             >
               <span>Carrinho de compras</span>
               {/* LOCAL DO CONTADOR DE ITEMS NO CARRINHO */}
-              <span data-testid="shopping-cart-size">{ totalCarrinho }</span>
+              <span data-testid="shopping-cart-size">{ `${totalCarrinho} >` }</span>
             </Link>
           </div>
         </nav>
@@ -84,19 +84,13 @@ class ProductDetails extends React.Component {
           <div className="container-details">
             <h2 data-testid="product-detail-name">{ title }</h2>
             <p>{ `R$ ${price}` }</p>
-            <ul className="details">
+            <span>{ `Estoque: ${availableQuantity} `}</span>
+            <ul className="container-list-details">
               {
                 atributos.map(({ name, value_name: value, id }) => (
-                  <li key={ id }>{` ${name}: ${value} `}</li>
+                  <li className="item-list" key={ id }>{` ${name}: ${value} `}</li>
                 ))
               }
-            </ul>
-            <ul>
-              <li>
-                Quantidade disponível
-                { availableQuantity }
-
-              </li>
             </ul>
           </div>
         </section>

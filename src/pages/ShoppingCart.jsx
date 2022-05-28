@@ -50,8 +50,6 @@ class ShoopingCart extends React.Component {
     const productAdd = filteredProducts.find(({ id }) => idProduct === id);
     const quantityProduct = produtos
       .filter(({ id: idProduto }) => idProduto === idProduct).length;
-    console.log(productAdd.available_quantity);
-    console.log(quantityProduct);
     if (quantityProduct < productAdd.available_quantity) {
       saveProduct(productAdd);
       this.setState((prevState) => ({

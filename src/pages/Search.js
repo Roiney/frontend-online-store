@@ -22,7 +22,6 @@ class Search extends React.Component {
   // Altera a quantidade que aparece do lado do carrinho
   handleAmount = () => {
     const total = readSavedProducts().length;
-    console.log(total);
     this.setState({
       totalCarrinho: total,
     });
