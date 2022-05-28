@@ -105,49 +105,52 @@ class ShoopingCart extends React.Component {
           hasItems ? (
             <section className="main-cart-container">
               <h2>Carrinho de compras</h2>
-              {
-                filteredProducts.map(({ title, price, thumbnail, id }) => (
-                  <div className="container-cartProduct" key={ id }>
-                    <div className="container-cartImage">
-                      <button
-                        type="button"
-                        name={ id }
-                        onClick={ this.deleteProduct }
-                      >
-                        X
-                      </button>
-                      <img src={ thumbnail } alt={ thumbnail } />
-                      <h3 data-testid="shopping-cart-product-name">{ title }</h3>
+              <article className="container-cart-products">
+                {
+                  filteredProducts.map(({ title, price, thumbnail, id }) => (
+                    <div className="container-cartProduct" key={ id }>
+                      <div className="container-cartImage">
+                        <button
+                          type="button"
+                          name={ id }
+                          onClick={ this.deleteProduct }
+                        >
+                          X
+                        </button>
+                        <img src={ thumbnail } alt={ thumbnail } />
+                        <h3 data-testid="shopping-cart-product-name">{ title }</h3>
+                      </div>
+                      <div className="container-quantityControl">
+                        <button
+                          type="button"
+                          data-testid="product-decrease-quantity"
+                          name={ id }
+                          onClick={ this.decreaseQuantity }
+                        >
+                          -
+                        </button>
+                        <span
+                          data-testid="shopping-cart-product-quantity"
+                        >
+                          {
+                            produtos
+                              .filter(({ id: idProduto }) => idProduto === id).length
+                          }
+                        </span>
+                        <button
+                          type="button"
+                          data-testid="product-increase-quantity"
+                          name={ id }
+                          onClick={ this.increaseQuantity }
+                        >
+                          +
+                        </button>
+                      </div>
+                      <span>{ `R$ ${price.toFixed(2)}` }</span>
                     </div>
-                    <div className="container-quantityControl">
-                      <button
-                        type="button"
-                        data-testid="product-decrease-quantity"
-                        name={ id }
-                        onClick={ this.decreaseQuantity }
-                      >
-                        -
-                      </button>
-                      <span
-                        data-testid="shopping-cart-product-quantity"
-                      >
-                        {
-                          produtos.filter(({ id: idProduto }) => idProduto === id).length
-                        }
-                      </span>
-                      <button
-                        type="button"
-                        data-testid="product-increase-quantity"
-                        name={ id }
-                        onClick={ this.increaseQuantity }
-                      >
-                        +
-                      </button>
-                    </div>
-                    <span>{ `R$ ${price.toFixed(2)}` }</span>
-                  </div>
-                ))
-              }
+                  ))
+                }
+              </article>
               <p>{ `Valor total da Compra R$ ${totalPrice.toFixed(2)}` }</p>
               <Link
                 to="/checkout"
