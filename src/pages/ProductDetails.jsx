@@ -88,7 +88,9 @@ class ProductDetails extends React.Component {
             <ul className="container-list-details">
               {
                 atributos.map(({ name, value_name: value, id }) => (
-                  <li className="item-list" key={ id }>{` ${name}: ${value} `}</li>
+                  <div className="container-item-list" key={ id }>
+                    <li className="item-list">{` ${name}: ${value} `}</li>
+                  </div>
                 ))
               }
             </ul>
@@ -99,17 +101,32 @@ class ProductDetails extends React.Component {
           {/* LOCAL DO FORMULARIO DE AVALIAÇÃO */}
           <h1>Formulario de avaliação</h1>
 
-          <div className="add-carrinho">
-            <p>{ `De: R$ ${totalPrice}` }</p>
-            <p>{ `Por: R$ ${price}` }</p>
-            <button
-              data-testid="product-detail-add-to-cart"
-              type="button"
-              onClick={ this.handleClick }
-            >
-              Adicionar ao carrinho
-            </button>
-          </div>
+          {
+            totalPrice ? (
+              <div className="add-carrinho">
+                <p className="discount">{ `De: R$ ${totalPrice}` }</p>
+                <p>{ `Por: R$ ${price}` }</p>
+                <button
+                  data-testid="product-detail-add-to-cart"
+                  type="button"
+                  onClick={ this.handleClick }
+                >
+                  Adicionar ao carrinho
+                </button>
+              </div>
+            ) : (
+              <div className="add-carrinho">
+                <p>{ `Por: R$ ${price}` }</p>
+                <button
+                  data-testid="product-detail-add-to-cart"
+                  type="button"
+                  onClick={ this.handleClick }
+                >
+                  Adicionar ao carrinho
+                </button>
+              </div>
+            )
+          }
         </section>
 
       </section>
