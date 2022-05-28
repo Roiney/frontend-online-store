@@ -1,73 +1,117 @@
 import React from 'react';
 import { readSavedProducts } from '../services/storageCart';
+import './StyleSheet/Checkout.css';
 
 class Checkout extends React.Component {
   state = {
-    hasItems: false,
+    produtos: [],
   };
 
   componentDidMount() {
     const produtos = readSavedProducts();
-    if (produtos.length > 0) this.setState({ hasItems: true, produtos });
+    if (produtos.length > 0) this.setState({ produtos });
   }
 
   render() {
-    const { hasItems, produtos, quantidade } = this.state;
+    const { produtos } = this.state;
     return (
       <div>
-        <h1>Insira seus Dados.</h1>
-        <label htmlFor="inputNome">
-          Digite seu nome completo:
-          <input data-testid="checkout-fullname" id="inputNome" />
-        </label>
-        <label htmlFor="inputemail">
-          Digite seu E-mail:
-          <input data-testid="checkout-email" id="inputemail" />
-        </label>
-        <label htmlFor="inputcpf">
-          Digite seu CPF:
-          <input data-testid="checkout-cpf" id="inputcpf" />
-        </label>
-        <label htmlFor="inputphone">
-          Digite seu Telefone:
-          <input data-testid="checkout-phone" id="inputphone" />
-        </label>
-        <label htmlFor="inputcep">
-          Digite seu CEP:
-          <input data-testid="checkout-cep" id="inputcep" />
-        </label>
-        <label htmlFor="inputaddress">
-          Digite seu Endereço Completo:
-          <input data-testid="checkout-address" id="inputaddress" />
-        </label>
-        {/* <form>
-            <input type="radio" name="Boleto" value="Boleto" />
-            Boleto
-            <input type="radio" name="Visa" value="Visa" />
-            Visa
-            <input type="radio" name="MasterCard" value="MasterCard" />
-            MasterCard
-            <input type="radio" name="Elo" value="Elo" />
-            Elo
-          </form> */}
-        {hasItems ? (
-          <div>
-            <h1>Items do carrinho</h1>
-            {produtos.map(({ title, price, thumbnail, id }) => (
-              <div key={ id }>
-                <h2 data-testid="shopping-cart-product-name">{title}</h2>
+        <section className="container-product-list">
+          <h2>Revise seu Produtos</h2>
+          <hr />
+          {produtos.map(({ title, price, thumbnail, id }) => (
+            <div className="container-product-review" key={ id }>
+              <div>
                 <img src={ thumbnail } alt={ thumbnail } />
-                <p>{price}</p>
-                <p data-testid="shopping-cart-product-quantity">{quantidade}</p>
+                <h3>{title}</h3>
               </div>
-            ))}
+              <p>Qtd: 1</p>
+              <p>{`R$ ${price.toFixed(2)}`}</p>
+            </div>
+          ))}
+        </section>
+        <section className="container-info-user">
+          <h2>Informações do Comprador</h2>
+          <hr />
+          <div className="container-inputs">
+            <input
+              data-testid="checkout-fullname"
+              placeholder="Nome Completo"
+              id="inputNome"
+            />
+
+            <input
+              data-testid="checkout-cpf"
+              id="inputcpf"
+              placeholder="CPF"
+            />
+
+            <input
+              data-testid="checkout-email"
+              id="inputemail"
+              placeholder="E-mail"
+            />
+
+            <input
+              data-testid="checkout-phone"
+              id="inputphone"
+              placeholder="Telefone"
+            />
+
+            <input
+              data-testid="checkout-cep"
+              id="inputcep"
+              placeholder="CEP"
+            />
+
+            <input
+              data-testid="checkout-address"
+              id="inputaddress"
+              placeholder="Endereço"
+            />
+
+            <input
+              id="inputaddress"
+              placeholder="Complemento"
+            />
+
+            <input
+              id="inputaddress"
+              placeholder="Número"
+            />
+
+            <input
+              id="inputaddress"
+              placeholder="Cidade"
+            />
+            <select>
+              <option>Estado</option>
+            </select>
           </div>
-        ) : (
-          <h1 data-testid="shopping-cart-empty-message" className="empty-cart">
-            Seu carrinho está vazio
-          </h1>
-        )}
-        <button type="button"> Finalizar Compra</button>
+        </section>
+        <section className="container-pay-method">
+          <h2>Método de Pagamento</h2>
+          <hr />
+          <div className="container-pay-options">
+            <label htmlFor="boletoRadio">
+              <input id="boletoRadio" type="radio" name="Boleto" value="Boleto" />
+              Boleto
+            </label>
+            <label htmlFor="visaRadio">
+              <input id="visaRadio" type="radio" name="Visa" value="Visa" />
+              Visa
+            </label>
+            <label htmlFor="masterRadio">
+              <input id="masterRadio" type="radio" name="MasterCard" value="MasterCard" />
+              MasterCard
+            </label>
+            <label htmlFor="eloRadio">
+              <input id="eloRadio" type="radio" name="Elo" value="Elo" />
+              Elo
+            </label>
+          </div>
+        </section>
+        <button className="finish-button" type="button">Comprar</button>
       </div>
     );
   }

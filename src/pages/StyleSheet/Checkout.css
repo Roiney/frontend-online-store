@@ -1,0 +1,82 @@
+.container-product-list, .container-info-user, .container-pay-method {
+  border: 1px solid black;
+  margin: 15px;
+}
+
+.container-product-list h2, .container-info-user h2, .container-pay-method h2 {
+  margin-left: 15px;
+}
+
+.container-product-review, .container-product-review div {
+  align-items: center;
+  display: flex;
+}
+
+.container-product-review {
+  margin: 15px;
+}
+
+.container-product-review div {
+  margin-right: 20px;
+}
+
+.container-product-review div img {
+  border: 1px solid black;
+}
+
+.container-product-review div h3 {
+  margin-left: 15px;
+  width: 560px;
+}
+
+.container-product-review p:nth-of-type( 1 ) {
+  margin-right: 30px;
+}
+
+.container-inputs {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px 0 15px 5px;
+}
+
+.container-inputs input, .container-inputs select {
+  margin: 5px;
+  padding: 5px 0;
+}
+
+.container-inputs input:nth-child( 1 ), .container-inputs input:nth-child( 2 ) {
+  flex-basis: 20%;
+}
+
+
+.container-inputs input:nth-child( 3 ), .container-inputs input:nth-child( 4 ) {
+  flex-basis: 20%;
+}
+
+.container-inputs input:nth-child( 5 ), .container-inputs input:nth-child( 7 ) {
+  flex-basis: 20%;
+}
+
+.container-inputs input:nth-child( 6 ) {
+  flex-basis: 62%;
+}
+
+.container-inputs input:nth-child( 8 ), .container-inputs select {
+  flex-basis: 15%;
+}
+
+.container-inputs input:nth-child( 9 ) {
+  flex-basis: 30%;
+}
+
+.container-pay-options {
+  margin: 15px 5px;
+}
+
+.finish-button {
+  background-color: white;
+  border: 1px solid black;
+  margin: 0 15px 15px;
+  padding: 8px 30px;
+}
