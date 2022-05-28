@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import './StyleSheet/ProductDetails.css';
 import { Link } from 'react-router-dom';
 import { saveProduct, readSavedProducts } from '../services/storageCart';
+import EvaluationForm from '../components/EvaluationForm';
+import PreviousEvaluations from './PreviousEvaluations';
 
 class ProductDetails extends React.Component {
   state = {
@@ -24,7 +26,8 @@ class ProductDetails extends React.Component {
     const url = `https://api.mercadolibre.com/items/${id}`;
     const response = await fetch(url);
     const produto = await response.json();
-    this.setState({ produto,
+    this.setState({
+      produto,
       atributos: produto.attributes,
       imagem: produto.pictures.find((_picture, index) => index === 0).url,
       availableQuantity: produto.available_quantity,
@@ -71,7 +74,7 @@ class ProductDetails extends React.Component {
             >
               <span>Carrinho de compras</span>
               {/* LOCAL DO CONTADOR DE ITEMS NO CARRINHO */}
-              <span data-testid="shopping-cart-size">{ totalCarrinho }</span>
+              <span data-testid="shopping-cart-size">{totalCarrinho}</span>
             </Link>
           </div>
         </nav>
@@ -82,32 +85,28 @@ class ProductDetails extends React.Component {
           </div>
 
           <div className="container-details">
-            <h2 data-testid="product-detail-name">{ title }</h2>
-            <p>{ `R$ ${price}` }</p>
+            <h2 data-testid="product-detail-name">{title}</h2>
+            <p>{`R$ ${price}`}</p>
             <ul className="details">
               {
                 atributos.map(({ name, value_name: value, id }) => (
                   <li key={ id }>{` ${name}: ${value} `}</li>
                 ))
               }
-            </ul>
-            <ul>
               <li>
-                Quantidade disponível
-                { availableQuantity }
-
+                {`Quantidade disponível: 
+                ${availableQuantity}`}
               </li>
             </ul>
           </div>
         </section>
-        {/* FORMULARIO DE AVALIAÇÃO E BOTÃO ADD CARRINHO */}
+        <h1>Avaliações</h1>
+        <EvaluationForm />
         <section className="container-evaluation">
-          {/* LOCAL DO FORMULARIO DE AVALIAÇÃO */}
-          <h1>Formulario de avaliação</h1>
-
+          <PreviousEvaluations />
           <div className="add-carrinho">
-            <p>{ `De: R$ ${totalPrice}` }</p>
-            <p>{ `Por: R$ ${price}` }</p>
+            <p>{`De: R$ ${totalPrice}`}</p>
+            <p>{`Por: R$ ${price}`}</p>
             <button
               data-testid="product-detail-add-to-cart"
               type="button"
