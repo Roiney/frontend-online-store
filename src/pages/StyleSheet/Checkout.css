@@ -33,6 +33,12 @@
   margin-right: 30px;
 }
 
+.totalPrice {
+  font-style: italic;
+  font-weight: 500;
+  margin-left: 15px;
+}
+
 .container-inputs {
   align-items: center;
   display: flex;
