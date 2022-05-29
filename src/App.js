@@ -7,7 +7,6 @@ import ProductDetails from './pages/ProductDetails';
 import Checkout from './pages/Checkout';
 import LoginPage from './pages/LoginPage';
 import ForgotPassword from './pages/ForgotPassword';
-import PreviousEvaluations from './pages/PreviousEvaluations';
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
         <Route path="/checkout" component={ Checkout } />
         <Route path="/login" component={ LoginPage } />
         <Route path="/forgot-pass" component={ ForgotPassword } />
-        <Route path="/previous-evaluations" component={ PreviousEvaluations } />
         <Route exact path="/" component={ Search } />
       </Switch>
     </BrowserRouter>

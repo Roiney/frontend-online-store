@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PreviousEvaluations from '../pages/PreviousEvaluations';
+import PreviousEvaluations from './PreviousEvaluations';
 
 class EvaluationForm extends Component {
   state = {
