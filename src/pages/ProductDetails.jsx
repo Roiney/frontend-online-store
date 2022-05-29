@@ -4,7 +4,6 @@ import './StyleSheet/ProductDetails.css';
 import { Link } from 'react-router-dom';
 import { saveProduct, readSavedProducts } from '../services/storageCart';
 import EvaluationForm from '../components/EvaluationForm';
-import PreviousEvaluations from './PreviousEvaluations';
 
 class ProductDetails extends React.Component {
   state = {
@@ -93,6 +92,8 @@ class ProductDetails extends React.Component {
                   <li key={ id }>{` ${name}: ${value} `}</li>
                 ))
               }
+              {/* Estilizar <li> abaixo removendo marca de listagem e
+              aumentando o tamanho da fonte */}
               <li>
                 {`Quantidade disponível: 
                 ${availableQuantity}`}
@@ -100,10 +101,9 @@ class ProductDetails extends React.Component {
             </ul>
           </div>
         </section>
-        <h1>Avaliações</h1>
-        <EvaluationForm />
         <section className="container-evaluation">
-          <PreviousEvaluations />
+          <h1>Avaliações</h1>
+          <EvaluationForm />
           <div className="add-carrinho">
             <p>{`De: R$ ${totalPrice}`}</p>
             <p>{`Por: R$ ${price}`}</p>

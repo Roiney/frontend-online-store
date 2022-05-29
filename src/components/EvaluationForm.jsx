@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
+import PreviousEvaluations from '../pages/PreviousEvaluations';
 
 class EvaluationForm extends Component {
+  state = {
+    showPreviousEvaluations: false,
+  }
+
+  handleEvaluations = () => {
+    const { showPreviousEvaluations } = this.state;
+    this.setState({ showPreviousEvaluations: !showPreviousEvaluations });
+  };
+
   render() {
+    const { showPreviousEvaluations } = this.state;
     return (
       <div>
         <input
@@ -27,9 +38,12 @@ class EvaluationForm extends Component {
         <button
           type="submit"
           data-testid="submit-review-btn"
+          onClick={ this.handleEvaluations }
         >
           Avaliar
         </button>
+
+        {showPreviousEvaluations && <PreviousEvaluations />}
       </div>
     );
   }
