@@ -74,6 +74,23 @@
   margin: 15px 5px;
 }
 
+.container-pay-options label {
+  margin: 0 5px;
+}
+
+.container-creditCard {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  margin: 15px 6px;
+  padding: 5px 0;
+  width: 230px;
+}
+
+.container-creditCard label {
+  margin: 5px 0;
+}
+
 .finish-button {
   background-color: white;
   border: 1px solid black;

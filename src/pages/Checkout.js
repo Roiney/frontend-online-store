@@ -5,6 +5,7 @@ import './StyleSheet/Checkout.css';
 class Checkout extends React.Component {
   state = {
     produtos: [],
+    payOption: 'credito',
   };
 
   componentDidMount() {
@@ -13,7 +14,7 @@ class Checkout extends React.Component {
   }
 
   render() {
-    const { produtos } = this.state;
+    const { produtos, payOption } = this.state;
     return (
       <div>
         <section className="container-product-list">
@@ -37,51 +38,42 @@ class Checkout extends React.Component {
             <input
               data-testid="checkout-fullname"
               placeholder="Nome Completo"
-              id="inputNome"
             />
 
             <input
               data-testid="checkout-cpf"
-              id="inputcpf"
               placeholder="CPF"
             />
 
             <input
               data-testid="checkout-email"
-              id="inputemail"
               placeholder="E-mail"
             />
 
             <input
               data-testid="checkout-phone"
-              id="inputphone"
               placeholder="Telefone"
             />
 
             <input
               data-testid="checkout-cep"
-              id="inputcep"
               placeholder="CEP"
             />
 
             <input
               data-testid="checkout-address"
-              id="inputaddress"
               placeholder="Endereço"
             />
 
             <input
-              id="inputaddress"
               placeholder="Complemento"
             />
 
             <input
-              id="inputaddress"
               placeholder="Número"
             />
 
             <input
-              id="inputaddress"
               placeholder="Cidade"
             />
             <select>
@@ -94,21 +86,38 @@ class Checkout extends React.Component {
           <hr />
           <div className="container-pay-options">
             <label htmlFor="boletoRadio">
-              <input id="boletoRadio" type="radio" name="Boleto" value="Boleto" />
+              <input id="boletoRadio" type="radio" name="payment" value="boleto" />
               Boleto
             </label>
-            <label htmlFor="visaRadio">
-              <input id="visaRadio" type="radio" name="Visa" value="Visa" />
-              Visa
+            <label htmlFor="creditoRadio">
+              <input id="creditoRadio" type="radio" name="payment" value="credito" />
+              Cartão de Crédito
             </label>
-            <label htmlFor="masterRadio">
-              <input id="masterRadio" type="radio" name="MasterCard" value="MasterCard" />
-              MasterCard
-            </label>
-            <label htmlFor="eloRadio">
-              <input id="eloRadio" type="radio" name="Elo" value="Elo" />
-              Elo
-            </label>
+            <div>
+              {
+                payOption === 'credito' && (
+                  <section className="container-creditCard">
+                    <label htmlFor="visaRadio">
+                      <input id="visaRadio" type="radio" name="creditCard" value="Visa" />
+                      Visa
+                    </label>
+                    <label htmlFor="masterRadio">
+                      <input
+                        id="masterRadio"
+                        type="radio"
+                        name="creditCard"
+                        value="MasterCard"
+                      />
+                      MasterCard
+                    </label>
+                    <label htmlFor="eloRadio">
+                      <input id="eloRadio" type="radio" name="creditCard" value="Elo" />
+                      Elo
+                    </label>
+                  </section>
+                )
+              }
+            </div>
           </div>
         </section>
         <button className="finish-button" type="button">Comprar</button>
