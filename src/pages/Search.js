@@ -96,6 +96,7 @@ class Search extends React.Component {
                   thumbnail={ itens.thumbnail }
                   produto={ itens }
                   handleAmount={ this.handleAmount }
+                  freeShipping={ itens.shipping.free_shipping }
                 />
               ))}
             </div>
