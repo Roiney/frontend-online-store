@@ -12,6 +12,8 @@ class Search extends React.Component {
     inputValue: '',
     produtos: [],
     totalCarrinho: 0,
+    typePrice: 'Recente',
+    categoria: '',
   };
 
   // Altera a quantidade que aparece do lado do carrinho quando abrir a pagina
@@ -33,78 +35,136 @@ class Search extends React.Component {
     this.setState({ [name]: value });
   };
 
+  // Alterar categoria e atualizar a pagina
+handleCategory = (event) => {
+  const ideia = event.target.id;
+  this.setState({
+    categoria: ideia,
+  }, () => { this.handleClick(); });
+}
+
   // Realiza pesquisa a partir do campo de pesquisa e categorias
-  handleClick = async (event) => {
-    const { target: { id } } = event;
-    const categoria = id;
-    const { inputValue } = this.state;
-    const APIResponse = await getProductsFromCategoryAndQuery(
-      categoria,
-      inputValue,
-    );
-    const response = APIResponse.results;
-    this.setState({ produtos: response });
+  handleClick = async () => {
+    const { inputValue, categoria } = this.state;
+    if (inputValue.length !== 0 || categoria.length !== 0) {
+      const APIResponse = await getProductsFromCategoryAndQuery(
+        categoria,
+        inputValue,
+      );
+      const response = APIResponse.results;
+      this.handlePrint(response);
+    }
   };
 
-  render() {
-    const { inputValue, produtos, totalCarrinho } = this.state;
-    return (
-      <div className="main-container">
-        <Categories handleApertar={ this.handleClick } />
-        <section className="content-container">
-          {/* CAMPO DE PESQUISA E BOTÃO */}
-          <div className="search-container">
-            <div className="control-search">
-              <input
-                type="text"
-                data-testid="query-input"
-                name="inputValue"
-                value={ inputValue }
-                onChange={ this.handleChange }
-              />
-              <button
-                data-testid="query-button"
-                onClick={ this.handleClick }
-                type="button"
-              >
-                Pesquisar
-              </button>
-            </div>
-            {/* LINK PARA CARRINHO DE COMPRAS */}
-            <Link
-              to="/carrinho"
-              data-testid="shopping-cart-button"
-              className="link-cart"
-            >
-              <span>Carrinho de compras</span>
-              {/* LOCAS DO CONTADOR DE ITEMS NO CARRINHO */}
-              <span data-testid="shopping-cart-size">{ `${totalCarrinho} >` }</span>
-            </Link>
-          </div>
-          {/* LISTAGEM DE PRODUTOS */}
-          <article className="product-conteiner">
-            <p className="initial-message" data-testid="home-initial-message">
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </p>
-            <div className="product-list">
-              {produtos.map((itens) => (
-                <Card
-                  id={ itens.id }
-                  key={ itens.id }
-                  price={ itens.price }
-                  title={ itens.title }
-                  thumbnail={ itens.thumbnail }
-                  produto={ itens }
-                  handleAmount={ this.handleAmount }
-                  freeShipping={ itens.shipping.free_shipping }
-                />
-              ))}
-            </div>
-          </article>
-        </section>
-      </div>
-    );
+  // Ordenar os valores e imprimir na tela
+  handlePrint = (response) => {
+    const { typePrice } = this.state;
+    console.log('preco', typePrice);
+    if (typePrice === 'Recente') {
+      this.setState({ produtos: response });
+    }
+    if (typePrice === 'Mais caro') {
+      const numero = -1;
+      const retorno = response.sort((a, b) => {
+        if (a.price > b.price) {
+          return numero;
+        }
+        return true;
+      });
+      this.setState({ produtos: retorno });
+    }
+    if (typePrice === 'Mais barato') {
+      const numero = -1;
+      const retorno = response.sort((a, b) => {
+        if (a.price < b.price) {
+          return numero;
+        }
+        return true;
+      });
+      this.setState({ produtos: retorno });
+    }
+    console.log('passou handlePrint');
   }
+
+// Definir no estado a ordem dos valores
+handlePrice = ({ target }) => {
+  const valor = target.value;
+  console.log(valor);
+  this.setState({
+    typePrice: valor,
+  });
+  this.handleClick();
+}
+
+render() {
+  const { inputValue, produtos, totalCarrinho, typePrice } = this.state;
+  return (
+    <div className="main-container">
+      <Categories handleApertar={ this.handleCategory } />
+      <section className="content-container">
+        {/* CAMPO DE PESQUISA E BOTÃO */}
+        <div className="search-container">
+          <div className="control-search">
+            <input
+              type="text"
+              data-testid="query-input"
+              name="inputValue"
+              value={ inputValue }
+              onChange={ this.handleChange }
+            />
+            <button
+              data-testid="query-button"
+              onClick={ this.handleClick }
+              type="button"
+            >
+              Pesquisar
+            </button>
+          </div>
+          {/* LINK PARA CARRINHO DE COMPRAS */}
+          <Link
+            to="/carrinho"
+            data-testid="shopping-cart-button"
+            className="link-cart"
+          >
+            <span>Carrinho de compras</span>
+            {/* LOCAS DO CONTADOR DE ITEMS NO CARRINHO */}
+            <span data-testid="shopping-cart-size">{ `${totalCarrinho} >` }</span>
+          </Link>
+        </div>
+        {/* LISTAGEM DE PRODUTOS */}
+        <article className="product-conteiner">
+          <p className="initial-message" data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </p>
+          {/* Ordenar os valores    */}
+          <select
+            name="typePrice"
+            value={ typePrice }
+            onChange={ this.handlePrice }
+          >
+            <option value="Recente">Recente</option>
+            <option value="Mais caro">Mais caro</option>
+            <option value="Mais barato">Mais barato</option>
+          </select>
+          <div className="product-list">
+            {produtos.map((itens) => (
+              <Card
+                id={ itens.id }
+                key={ itens.id }
+                price={ itens.price }
+                title={ itens.title }
+                thumbnail={ itens.thumbnail }
+                produto={ itens }
+                handleAmount={ this.handleAmount }
+                freeShipping={ itens.shipping.free_shipping }
+              />
+            ))}
+          </div>
+        </article>
+      </section>
+    </div>
+  );
+}
 }
 Search.prototypes = {
   price: PropTypes.string.isRequired,
