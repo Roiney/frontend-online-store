@@ -11,6 +11,7 @@ class ProductDetails extends React.Component {
     availableQuantity: '',
     imagem: '',
     totalCarrinho: 0,
+    freeShipping: [],
   }
 
   async componentDidMount() {
@@ -28,7 +29,8 @@ class ProductDetails extends React.Component {
       atributos: produto.attributes,
       imagem: produto.pictures.find((_picture, index) => index === 0).url,
       availableQuantity: produto.available_quantity,
-    });
+      freeShipping: produto.shipping.free_shipping,
+    }, () => console.log(produto.shipping.free_shipping));
   }
 
   // Salva produto no LocalStorage
@@ -56,6 +58,7 @@ class ProductDetails extends React.Component {
       imagem,
       availableQuantity,
       totalCarrinho,
+      freeShipping,
     } = this.state;
     return (
       <section className="container-product">
@@ -95,8 +98,8 @@ class ProductDetails extends React.Component {
               <li>
                 Quantidade disponível
                 { availableQuantity }
-
               </li>
+              { freeShipping ? (<h4 data-testid="free-shipping">Frete grátis</h4>): (``) }
             </ul>
           </div>
         </section>
