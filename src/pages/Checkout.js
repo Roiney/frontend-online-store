@@ -8,7 +8,6 @@ class Checkout extends React.Component {
     filteredProducts: [],
     products: [],
     totalPrice: 0,
-    payOption: 'credito',
     userInfo: {
       nome: '',
       cpf: '',
@@ -21,8 +20,8 @@ class Checkout extends React.Component {
       cidade: '',
       estado: '',
     },
-    // payOption: '',
-    // creditCard: '',
+    payOption: '',
+    creditCard: '',
   };
 
   componentDidMount() {
@@ -44,14 +43,30 @@ class Checkout extends React.Component {
         return novoAcc;
       }, 0);
 
-  handleChange = ({ target: { value, name } }) => {
+  handleChangeInfos = ({ target: { value, name } }) => {
     this.setState((prevState) => ({
       userInfo: { ...prevState.userInfo, [name]: value },
     }));
   }
 
+  handleChangePayment = ({ target: { value, name } }) => {
+    this.setState({ [name]: value }, () => {
+      const { payOption } = this.state;
+      if (payOption === 'Boleto') {
+        this.setState({ creditCard: '' });
+      }
+    });
+  }
+
   render() {
-    const { products, filteredProducts, payOption, totalPrice, userInfo } = this.state;
+    const {
+      products,
+      filteredProducts,
+      totalPrice,
+      userInfo,
+      payOption,
+      creditCard,
+    } = this.state;
     return (
       <div>
         <section className="container-product-list">
@@ -78,7 +93,7 @@ class Checkout extends React.Component {
           <hr />
           <FormCheckout
             userInfo={ userInfo }
-            handleChange={ this.handleChange }
+            handleChange={ this.handleChangeInfos }
           />
         </section>
         <section className="container-pay-method">
@@ -86,16 +101,28 @@ class Checkout extends React.Component {
           <hr />
           <div className="container-pay-options">
             <label htmlFor="boletoRadio">
-              <input id="boletoRadio" type="radio" name="payment" value="boleto" />
+              <input
+                id="boletoRadio"
+                type="radio"
+                name="payOption"
+                value="Boleto"
+                onChange={ this.handleChangePayment }
+              />
               Boleto
             </label>
             <label htmlFor="creditoRadio">
-              <input id="creditoRadio" type="radio" name="payment" value="credito" />
+              <input
+                id="creditoRadio"
+                type="radio"
+                name="payOption"
+                value="Crédito"
+                onChange={ this.handleChangePayment }
+              />
               Cartão de Crédito
             </label>
             <div>
               {
-                payOption === 'credito' && (
+                payOption === 'Crédito' && (
                   <section className="container-creditCard">
                     <label htmlFor="visaRadio">
                       <input
@@ -103,6 +130,8 @@ class Checkout extends React.Component {
                         type="radio"
                         name="creditCard"
                         value="Visa"
+                        checked={ creditCard === 'Visa' }
+                        onChange={ this.handleChangePayment }
                       />
                       Visa
                     </label>
@@ -112,11 +141,20 @@ class Checkout extends React.Component {
                         type="radio"
                         name="creditCard"
                         value="MasterCard"
+                        checked={ creditCard === 'MasterCard' }
+                        onChange={ this.handleChangePayment }
                       />
                       MasterCard
                     </label>
                     <label htmlFor="eloRadio">
-                      <input id="eloRadio" type="radio" name="creditCard" value="Elo" />
+                      <input
+                        id="eloRadio"
+                        type="radio"
+                        name="creditCard"
+                        value="Elo"
+                        checked={ creditCard === 'Elo' }
+                        onChange={ this.handleChangePayment }
+                      />
                       Elo
                     </label>
                   </section>
@@ -130,5 +168,10 @@ class Checkout extends React.Component {
     );
   }
 }
+// rating: 3,
+
+// const { rating } =this.state
+
+// <i className={ rating >= value && "classe-pinta estrela" }
 
 export default Checkout;
