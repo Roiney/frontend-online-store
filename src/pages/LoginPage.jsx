@@ -7,7 +7,7 @@ class LoginPage extends Component {
   //   password: '',
   // }
 
-  handleClick = ({ target: { name, value } }) => {
+  handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   }
 
@@ -20,14 +20,14 @@ class LoginPage extends Component {
           name="user"
           // id="user"
           placeholder="usuário"
-          onChange={ this.handleClick }
+          onChange={ this.handleChange }
         />
         <input
           type="password"
           name="password"
           // id="password"
           placeholder="senha"
-          onChange={ this.handleClick }
+          onChange={ this.handleChange }
         />
         <input
           type="button"

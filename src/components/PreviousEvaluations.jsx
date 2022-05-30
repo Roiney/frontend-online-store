@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class PreviousEvaluations extends Component {
-  state = {
-    evaluations: '',
-  }
-
   render() {
-    const { evaluations } = this.state;
+    const { evaluations } = this.props;
     return (
       <div>
         {
@@ -22,5 +19,9 @@ class PreviousEvaluations extends Component {
     );
   }
 }
+
+PreviousEvaluations.propTypes = {
+  evaluations: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+};
 
 export default PreviousEvaluations;
