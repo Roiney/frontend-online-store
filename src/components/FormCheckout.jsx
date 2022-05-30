@@ -23,6 +23,7 @@ class FormCheckout extends React.Component {
           placeholder="Nome Completo"
           type="text"
           name="nome"
+          value={ userInfo.nome }
           onChange={ handleChange }
         />
 
@@ -31,6 +32,7 @@ class FormCheckout extends React.Component {
           placeholder="CPF"
           type="text"
           name="cpf"
+          value={ userInfo.cpf }
           onChange={ handleChange }
         />
 
@@ -39,6 +41,7 @@ class FormCheckout extends React.Component {
           placeholder="E-mail"
           type="email"
           name="email"
+          value={ userInfo.email }
           onChange={ handleChange }
         />
 
@@ -47,6 +50,7 @@ class FormCheckout extends React.Component {
           placeholder="Telefone"
           type="text"
           name="tel"
+          value={ userInfo.tel }
           onChange={ handleChange }
         />
 
@@ -55,6 +59,7 @@ class FormCheckout extends React.Component {
           placeholder="CEP"
           type="text"
           name="cep"
+          value={ userInfo.cep }
           onChange={ handleChange }
         />
 
@@ -63,6 +68,7 @@ class FormCheckout extends React.Component {
           placeholder="Endereço"
           type="text"
           name="endereco"
+          value={ userInfo.endereco }
           onChange={ handleChange }
         />
 
@@ -70,6 +76,7 @@ class FormCheckout extends React.Component {
           placeholder="Complemento"
           type="text"
           name="complemento"
+          value={ userInfo.complemento }
           onChange={ handleChange }
         />
 
@@ -77,6 +84,7 @@ class FormCheckout extends React.Component {
           placeholder="Número"
           type="text"
           name="numero"
+          value={ userInfo.numero }
           onChange={ handleChange }
         />
 
@@ -84,6 +92,7 @@ class FormCheckout extends React.Component {
           placeholder="Cidade"
           type="text"
           name="cidade"
+          value={ userInfo.cidade }
           onChange={ handleChange }
         />
         <select>
