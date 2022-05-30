@@ -22,7 +22,6 @@ class Search extends React.Component {
   // Altera a quantidade que aparece do lado do carrinho
   handleAmount = () => {
     const total = readSavedProducts().length;
-    console.log(total);
     this.setState({
       totalCarrinho: total,
     });
@@ -54,32 +53,34 @@ class Search extends React.Component {
         <Categories handleApertar={ this.handleClick } />
         <section className="content-container">
           {/* CAMPO DE PESQUISA E BOTÃO */}
-          <div className="control-search">
-            <input
-              type="text"
-              data-testid="query-input"
-              name="inputValue"
-              value={ inputValue }
-              onChange={ this.handleChange }
-            />
-            <button
-              data-testid="query-button"
-              onClick={ this.handleClick }
-              type="button"
+          <div className="search-container">
+            <div className="control-search">
+              <input
+                type="text"
+                data-testid="query-input"
+                name="inputValue"
+                value={ inputValue }
+                onChange={ this.handleChange }
+              />
+              <button
+                data-testid="query-button"
+                onClick={ this.handleClick }
+                type="button"
+              >
+                Pesquisar
+              </button>
+            </div>
+            {/* LINK PARA CARRINHO DE COMPRAS */}
+            <Link
+              to="/carrinho"
+              data-testid="shopping-cart-button"
+              className="link-cart"
             >
-              Pesquisar
-            </button>
+              <span>Carrinho de compras</span>
+              {/* LOCAS DO CONTADOR DE ITEMS NO CARRINHO */}
+              <span data-testid="shopping-cart-size">{ `${totalCarrinho} >` }</span>
+            </Link>
           </div>
-          {/* LINK PARA CARRINHO DE COMPRAS */}
-          <Link
-            to="/carrinho"
-            data-testid="shopping-cart-button"
-            className="link-cart"
-          >
-            <span>Carrinho de compras</span>
-            {/* LOCAS DO CONTADOR DE ITEMS NO CARRINHO */}
-            <span data-testid="shopping-cart-size">{ totalCarrinho }</span>
-          </Link>
           {/* LISTAGEM DE PRODUTOS */}
           <article className="product-conteiner">
             <p className="initial-message" data-testid="home-initial-message">

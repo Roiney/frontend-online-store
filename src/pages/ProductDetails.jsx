@@ -71,7 +71,7 @@ class ProductDetails extends React.Component {
             >
               <span>Carrinho de compras</span>
               {/* LOCAL DO CONTADOR DE ITEMS NO CARRINHO */}
-              <span data-testid="shopping-cart-size">{ totalCarrinho }</span>
+              <span data-testid="shopping-cart-size">{ `${totalCarrinho} >` }</span>
             </Link>
           </div>
         </nav>
@@ -84,19 +84,15 @@ class ProductDetails extends React.Component {
           <div className="container-details">
             <h2 data-testid="product-detail-name">{ title }</h2>
             <p>{ `R$ ${price}` }</p>
-            <ul className="details">
+            <span>{ `Estoque: ${availableQuantity} `}</span>
+            <ul className="container-list-details">
               {
                 atributos.map(({ name, value_name: value, id }) => (
-                  <li key={ id }>{` ${name}: ${value} `}</li>
+                  <div className="container-item-list" key={ id }>
+                    <li className="item-list">{` ${name}: ${value} `}</li>
+                  </div>
                 ))
               }
-            </ul>
-            <ul>
-              <li>
-                Quantidade disponível
-                { availableQuantity }
-
-              </li>
             </ul>
           </div>
         </section>
@@ -105,17 +101,32 @@ class ProductDetails extends React.Component {
           {/* LOCAL DO FORMULARIO DE AVALIAÇÃO */}
           <h1>Formulario de avaliação</h1>
 
-          <div className="add-carrinho">
-            <p>{ `De: R$ ${totalPrice}` }</p>
-            <p>{ `Por: R$ ${price}` }</p>
-            <button
-              data-testid="product-detail-add-to-cart"
-              type="button"
-              onClick={ this.handleClick }
-            >
-              Adicionar ao carrinho
-            </button>
-          </div>
+          {
+            totalPrice ? (
+              <div className="add-carrinho">
+                <p className="discount">{ `De: R$ ${totalPrice}` }</p>
+                <p>{ `Por: R$ ${price}` }</p>
+                <button
+                  data-testid="product-detail-add-to-cart"
+                  type="button"
+                  onClick={ this.handleClick }
+                >
+                  Adicionar ao carrinho
+                </button>
+              </div>
+            ) : (
+              <div className="add-carrinho">
+                <p>{ `Por: R$ ${price}` }</p>
+                <button
+                  data-testid="product-detail-add-to-cart"
+                  type="button"
+                  onClick={ this.handleClick }
+                >
+                  Adicionar ao carrinho
+                </button>
+              </div>
+            )
+          }
         </section>
 
       </section>
