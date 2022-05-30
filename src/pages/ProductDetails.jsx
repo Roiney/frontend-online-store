@@ -96,7 +96,7 @@ class ProductDetails extends React.Component {
             </ul>
             <ul>
               <li>
-                Quantidade disponível
+                Quantidade disponível:
                 { availableQuantity }
               </li>
               { freeShipping ? (<h4 data-testid="free-shipping">Frete grátis</h4>): (``) }
