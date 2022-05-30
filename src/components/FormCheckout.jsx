@@ -1,21 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './StyleSheet/FormCheckout.css';
 
 class FormCheckout extends React.Component {
   render() {
     const { handleChange, userInfo } = this.props;
-    // userInfo: {
-    //   nome: '',
-    //   cpf: '',
-    //   email: '',
-    //   tel: '',
-    //   cep: '',
-    //   endereco: '',
-    //   complemento: '',
-    //   numero: '',
-    //   cidade: '',
-    //   estado: '',
-    // },
     return (
       <div className="container-inputs">
         <input

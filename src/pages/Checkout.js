@@ -5,10 +5,10 @@ import './StyleSheet/Checkout.css';
 
 class Checkout extends React.Component {
   state = {
+    isFinished: false,
     filteredProducts: [],
     products: [],
     totalPrice: 0,
-    payOption: 'credito',
     userInfo: {
       nome: '',
       cpf: '',
@@ -21,8 +21,8 @@ class Checkout extends React.Component {
       cidade: '',
       estado: '',
     },
-    // payOption: '',
-    // creditCard: '',
+    payOption: '',
+    creditCard: '',
   };
 
   componentDidMount() {
@@ -44,89 +44,148 @@ class Checkout extends React.Component {
         return novoAcc;
       }, 0);
 
-  handleChange = ({ target: { value, name } }) => {
-    this.setState({ userInfo: { [name]: value } });
+  handleChangeInfos = ({ target: { value, name } }) => {
+    this.setState((prevState) => ({
+      userInfo: { ...prevState.userInfo, [name]: value },
+    }));
+  }
+
+  handleChangePayment = ({ target: { value, name } }) => {
+    this.setState({ [name]: value }, () => {
+      const { payOption } = this.state;
+      if (payOption === 'Boleto') {
+        this.setState({ creditCard: '' });
+      }
+    });
   }
 
   render() {
-    const { products, filteredProducts, payOption, totalPrice, userInfo } = this.state;
+    const {
+      products,
+      filteredProducts,
+      totalPrice,
+      userInfo,
+      payOption,
+      creditCard,
+      isFinished,
+    } = this.state;
     return (
       <div>
-        <section className="container-product-list">
-          <h2>Revise seu Produtos</h2>
-          <hr />
-          {filteredProducts.map(({ title, price, thumbnail, id }) => (
-            <div className="container-product-review" key={ id }>
-              <div>
-                <img src={ thumbnail } alt={ thumbnail } />
-                <h3>{title}</h3>
-              </div>
-              <p>
-                { `Qtd: ${products
-                  .filter(({ id: idProduto }) => idProduto === id).length}` }
+        {
+          isFinished ? (
+            <section>
+              <h1>Compra realizada com sucesso!</h1>
+              <h3>Obrigado pela preferência! :D</h3>
+            </section>
+          ) : (
+            <main>
 
-              </p>
-              <p>{`R$ ${price.toFixed(2)}`}</p>
-            </div>
-          ))}
-          <p className="totalPrice">{ `Total: R$ ${totalPrice.toFixed(2)}` }</p>
-        </section>
-        <section className="container-info-user">
-          <h2>Informações do Comprador</h2>
-          <hr />
-          <FormCheckout
-            userInfo={ userInfo }
-            handleChange={ this.handleChange }
-          />
-        </section>
-        <section className="container-pay-method">
-          <h2>Método de Pagamento</h2>
-          <hr />
-          <div className="container-pay-options">
-            <label htmlFor="boletoRadio">
-              <input id="boletoRadio" type="radio" name="payment" value="boleto" />
-              Boleto
-            </label>
-            <label htmlFor="creditoRadio">
-              <input id="creditoRadio" type="radio" name="payment" value="credito" />
-              Cartão de Crédito
-            </label>
-            <div>
-              {
-                payOption === 'credito' && (
-                  <section className="container-creditCard">
-                    <label htmlFor="visaRadio">
-                      <input
-                        id="visaRadio"
-                        type="radio"
-                        name="creditCard"
-                        value="Visa"
-                      />
-                      Visa
-                    </label>
-                    <label htmlFor="masterRadio">
-                      <input
-                        id="masterRadio"
-                        type="radio"
-                        name="creditCard"
-                        value="MasterCard"
-                      />
-                      MasterCard
-                    </label>
-                    <label htmlFor="eloRadio">
-                      <input id="eloRadio" type="radio" name="creditCard" value="Elo" />
-                      Elo
-                    </label>
-                  </section>
-                )
-              }
-            </div>
-          </div>
-        </section>
-        <button className="finish-button" type="button">Comprar</button>
+              <section className="container-product-list">
+                <h2>Revise seu Produtos</h2>
+                <hr />
+                {filteredProducts.map(({ title, price, thumbnail, id }) => (
+                  <div className="container-product-review" key={ id }>
+                    <div>
+                      <img src={ thumbnail } alt={ thumbnail } />
+                      <h3>{title}</h3>
+                    </div>
+                    <p>
+                      { `Qtd: ${products
+                        .filter(({ id: idProduto }) => idProduto === id).length}` }
+
+                    </p>
+                    <p>{`R$ ${price.toFixed(2)}`}</p>
+                  </div>
+                ))}
+                <p className="totalPrice">{ `Total: R$ ${totalPrice.toFixed(2)}` }</p>
+              </section>
+              <section className="container-info-user">
+                <h2>Informações do Comprador</h2>
+                <hr />
+                <FormCheckout
+                  userInfo={ userInfo }
+                  handleChange={ this.handleChangeInfos }
+                />
+              </section>
+              <section className="container-pay-method">
+                <h2>Método de Pagamento</h2>
+                <hr />
+                <div className="container-pay-options">
+                  <label htmlFor="boletoRadio">
+                    <input
+                      id="boletoRadio"
+                      type="radio"
+                      name="payOption"
+                      value="Boleto"
+                      onChange={ this.handleChangePayment }
+                    />
+                    Boleto
+                  </label>
+                  <label htmlFor="creditoRadio">
+                    <input
+                      id="creditoRadio"
+                      type="radio"
+                      name="payOption"
+                      value="Crédito"
+                      onChange={ this.handleChangePayment }
+                    />
+                    Cartão de Crédito
+                  </label>
+                  <div>
+                    {
+                      payOption === 'Crédito' && (
+                        <section className="container-creditCard">
+                          <label htmlFor="visaRadio">
+                            <input
+                              id="visaRadio"
+                              type="radio"
+                              name="creditCard"
+                              value="Visa"
+                              checked={ creditCard === 'Visa' }
+                              onChange={ this.handleChangePayment }
+                            />
+                            Visa
+                          </label>
+                          <label htmlFor="masterRadio">
+                            <input
+                              id="masterRadio"
+                              type="radio"
+                              name="creditCard"
+                              value="MasterCard"
+                              checked={ creditCard === 'MasterCard' }
+                              onChange={ this.handleChangePayment }
+                            />
+                            MasterCard
+                          </label>
+                          <label htmlFor="eloRadio">
+                            <input
+                              id="eloRadio"
+                              type="radio"
+                              name="creditCard"
+                              value="Elo"
+                              checked={ creditCard === 'Elo' }
+                              onChange={ this.handleChangePayment }
+                            />
+                            Elo
+                          </label>
+                        </section>
+                      )
+                    }
+                  </div>
+                </div>
+              </section>
+              <button className="finish-button" type="button">Comprar</button>
+            </main>
+          )
+        }
       </div>
     );
   }
 }
+// rating: 3,
+
+// const { rating } =this.state
+
+// <i className={ rating >= value && "classe-pinta estrela" }
 
 export default Checkout;
