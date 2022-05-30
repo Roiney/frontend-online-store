@@ -7,6 +7,10 @@
   min-height: 500px;
 }
 
+.container-cart-products {
+  border: 1px solid black;
+}
+
 .container-cartNavigation {
   display: flex;
   justify-content: flex-start;
