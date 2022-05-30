@@ -53,8 +53,6 @@ handleCategory = (event) => {
       );
       const response = APIResponse.results;
       this.handlePrint(response);
-    // } else {
-    //   alert('digite algo ou selecione alguma categoria');
     }
   };
 
