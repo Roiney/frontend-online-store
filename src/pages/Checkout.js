@@ -45,7 +45,9 @@ class Checkout extends React.Component {
       }, 0);
 
   handleChange = ({ target: { value, name } }) => {
-    this.setState({ userInfo: { [name]: value } });
+    this.setState((prevState) => ({
+      userInfo: { ...prevState.userInfo, [name]: value },
+    }));
   }
 
   render() {
