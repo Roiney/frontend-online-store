@@ -1,4 +1,6 @@
 import React from 'react';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
 import { readSavedProducts } from '../services/storageCart';
 
 class Checkout extends React.Component {
@@ -16,40 +18,34 @@ class Checkout extends React.Component {
     return (
       <div>
         <h1>Insira seus Dados.</h1>
-        <label htmlFor="inputNome">
-          Digite seu nome completo:
-          <input data-testid="checkout-fullname" id="inputNome" />
-        </label>
-        <label htmlFor="inputemail">
-          Digite seu E-mail:
-          <input data-testid="checkout-email" id="inputemail" />
-        </label>
-        <label htmlFor="inputcpf">
-          Digite seu CPF:
-          <input data-testid="checkout-cpf" id="inputcpf" />
-        </label>
-        <label htmlFor="inputphone">
-          Digite seu Telefone:
-          <input data-testid="checkout-phone" id="inputphone" />
-        </label>
-        <label htmlFor="inputcep">
-          Digite seu CEP:
-          <input data-testid="checkout-cep" id="inputcep" />
-        </label>
-        <label htmlFor="inputaddress">
-          Digite seu Endereço Completo:
-          <input data-testid="checkout-address" id="inputaddress" />
-        </label>
-        {/* <form>
-            <input type="radio" name="Boleto" value="Boleto" />
-            Boleto
-            <input type="radio" name="Visa" value="Visa" />
-            Visa
-            <input type="radio" name="MasterCard" value="MasterCard" />
-            MasterCard
-            <input type="radio" name="Elo" value="Elo" />
-            Elo
-          </form> */}
+        <Container>
+          <Form>
+            <Form.Group controlId="inputNome">
+              <Form.Label>Digite seu nome completo:</Form.Label>
+              <Form.Control data-testid="checkout-fullname" type="text" placeholder="Digite seu nome completo" />
+            </Form.Group>
+            <Form.Group controlId="form.Email">
+              <Form.Label>Digite seu E-mail:</Form.Label>
+              <Form.Control data-testid="checkout-email" type="email" placeholder="name@example.com" />
+            </Form.Group>
+            <Form.Group controlId="form.CPF">
+              <Form.Label>Digite seu CPF:</Form.Label>
+              <Form.Control data-testid="checkout-cpf" type="email" placeholder="000.000.000-XX" />
+            </Form.Group>
+            <Form.Group controlId="form.Phone">
+              <Form.Label> Digite seu Telefone:</Form.Label>
+              <Form.Control data-testid="checkout-phone" type="email" placeholder="(XX) XXXXX-XXXX" />
+            </Form.Group>
+            <Form.Group controlId="form.CEP">
+              <Form.Label> Digite seu CEP:</Form.Label>
+              <Form.Control data-testid="checkout-cep" type="email" placeholder="XXXXX-XX" />
+            </Form.Group>
+            <Form.Group controlId="form.address">
+              <Form.Label> Digite seu Endereço Completo:</Form.Label>
+              <Form.Control data-testid="checkout-address" type="email" />
+            </Form.Group>
+          </Form>
+        </Container>
         {hasItems ? (
           <div>
             <h1>Items do carrinho</h1>
