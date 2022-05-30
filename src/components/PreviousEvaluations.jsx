@@ -12,11 +12,11 @@ class PreviousEvaluations extends Component {
         {
           evaluations.map(({ email, rating, message }) => (
             <div key={ email }>
-              {' '}
               <span>{email}</span>
-              {rating}
+              <span>{rating}</span>
               <p>{message}</p>
-            </div>))
+            </div>
+          ))
         }
       </div>
     );
