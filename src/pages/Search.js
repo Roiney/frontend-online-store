@@ -9,6 +9,7 @@ import { readSavedProducts } from '../services/storageCart';
 
 class Search extends React.Component {
   state = {
+    isLoading: false,
     inputValue: '',
     produtos: [],
     totalCarrinho: 0,
@@ -44,22 +45,24 @@ handleCategory = (event) => {
 }
 
   // Realiza pesquisa a partir do campo de pesquisa e categorias
-  handleClick = async () => {
+  handleClick = () => {
     const { inputValue, categoria } = this.state;
-    if (inputValue.length !== 0 || categoria.length !== 0) {
-      const APIResponse = await getProductsFromCategoryAndQuery(
-        categoria,
-        inputValue,
-      );
-      const response = APIResponse.results;
-      this.handlePrint(response);
-    }
+    this.setState({ isLoading: true }, async () => {
+      if (inputValue.length !== 0 || categoria.length !== 0) {
+        const APIResponse = await getProductsFromCategoryAndQuery(
+          categoria,
+          inputValue,
+        );
+        const response = APIResponse.results;
+        this.handlePrint(response);
+      }
+      this.setState({ isLoading: false });
+    });
   };
 
   // Ordenar os valores e imprimir na tela
   handlePrint = (response) => {
     const { typePrice } = this.state;
-    console.log('preco', typePrice);
     if (typePrice === 'Recente') {
       this.setState({ produtos: response });
     }
@@ -83,13 +86,11 @@ handleCategory = (event) => {
       });
       this.setState({ produtos: retorno });
     }
-    console.log('passou handlePrint');
   }
 
 // Definir no estado a ordem dos valores
 handlePrice = ({ target }) => {
   const valor = target.value;
-  console.log(valor);
   this.setState({
     typePrice: valor,
   });
@@ -97,7 +98,7 @@ handlePrice = ({ target }) => {
 }
 
 render() {
-  const { inputValue, produtos, totalCarrinho, typePrice } = this.state;
+  const { inputValue, produtos, totalCarrinho, typePrice, isLoading } = this.state;
   return (
     <div className="main-container">
       <Categories handleApertar={ this.handleCategory } />
@@ -147,18 +148,21 @@ render() {
             <option value="Mais barato">Mais barato</option>
           </select>
           <div className="product-list">
-            {produtos.map((itens) => (
-              <Card
-                id={ itens.id }
-                key={ itens.id }
-                price={ itens.price }
-                title={ itens.title }
-                thumbnail={ itens.thumbnail }
-                produto={ itens }
-                handleAmount={ this.handleAmount }
-                freeShipping={ itens.shipping.free_shipping }
-              />
-            ))}
+            {
+              isLoading ? <h1>Carregando...</h1> : (
+                produtos.map((itens) => (
+                  <Card
+                    id={ itens.id }
+                    key={ itens.id }
+                    price={ itens.price }
+                    title={ itens.title }
+                    thumbnail={ itens.thumbnail }
+                    produto={ itens }
+                    handleAmount={ this.handleAmount }
+                    freeShipping={ itens.shipping.free_shipping }
+                  />
+                )))
+            }
           </div>
         </article>
       </section>

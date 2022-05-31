@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './StyleSheet/ProductDetails.css';
 import { Link } from 'react-router-dom';
 import { saveProduct, readSavedProducts } from '../services/storageCart';
+import EvaluationForm from '../components/EvaluationForm';
 
 class ProductDetails extends React.Component {
   state = {
@@ -25,12 +26,13 @@ class ProductDetails extends React.Component {
     const url = `https://api.mercadolibre.com/items/${id}`;
     const response = await fetch(url);
     const produto = await response.json();
-    this.setState({ produto,
+    this.setState({
+      produto,
       atributos: produto.attributes,
       imagem: produto.pictures.find((_picture, index) => index === 0).url,
       availableQuantity: produto.available_quantity,
       freeShipping: produto.shipping.free_shipping,
-    }, () => console.log(produto.shipping.free_shipping));
+    });
   }
 
   // Salva produto no LocalStorage
@@ -100,11 +102,9 @@ class ProductDetails extends React.Component {
             { freeShipping ? (<h4 data-testid="free-shipping">Frete grátis</h4>) : ('') }
           </div>
         </section>
-        {/* FORMULARIO DE AVALIAÇÃO E BOTÃO ADD CARRINHO */}
         <section className="container-evaluation">
-          {/* LOCAL DO FORMULARIO DE AVALIAÇÃO */}
-          <h1>Formulario de avaliação</h1>
-
+          <h1>Avaliações</h1>
+          <EvaluationForm />
           {
             totalPrice ? (
               <div className="add-carrinho">
