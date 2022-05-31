@@ -3,6 +3,25 @@
   margin: 15px;
 }
 
+.container-navigation-links {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+}
+
+.container-navigation-links a {
+  border-left: 2px solid black;
+  color: black;
+  margin: 2px 0;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.container-navigation-links a:hover {
+  padding-left: 8px;
+}
+
 .container-product-list h2, .container-info-user h2, .container-pay-method h2 {
   margin-left: 15px;
 }
@@ -71,5 +90,23 @@
 .finish-button:hover {
   background-color: black;
   color: white;
+  cursor: pointer;
+}
+
+.container-finish-message {
+  margin-top: 150px;
+  text-align: center;
+}
+
+.return-button {
+  background-color: rgb(70, 104, 206);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 8px 12px;
+}
+
+.return-button:hover {
+  background-color: rgb(58, 87, 173);
   cursor: pointer;
 }
