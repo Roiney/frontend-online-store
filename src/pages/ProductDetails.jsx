@@ -12,6 +12,7 @@ class ProductDetails extends React.Component {
     availableQuantity: '',
     imagem: '',
     totalCarrinho: 0,
+    freeShipping: [],
   }
 
   async componentDidMount() {
@@ -30,7 +31,8 @@ class ProductDetails extends React.Component {
       atributos: produto.attributes,
       imagem: produto.pictures.find((_picture, index) => index === 0).url,
       availableQuantity: produto.available_quantity,
-    });
+      freeShipping: produto.shipping.free_shipping,
+    }, () => console.log(produto.shipping.free_shipping));
   }
 
   // Salva produto no LocalStorage
@@ -58,6 +60,7 @@ class ProductDetails extends React.Component {
       imagem,
       availableQuantity,
       totalCarrinho,
+      freeShipping,
     } = this.state;
     return (
       <section className="container-product">
@@ -73,7 +76,7 @@ class ProductDetails extends React.Component {
             >
               <span>Carrinho de compras</span>
               {/* LOCAL DO CONTADOR DE ITEMS NO CARRINHO */}
-              <span data-testid="shopping-cart-size">{totalCarrinho}</span>
+              <span data-testid="shopping-cart-size">{ `${totalCarrinho} >` }</span>
             </Link>
           </div>
         </nav>
@@ -84,37 +87,50 @@ class ProductDetails extends React.Component {
           </div>
 
           <div className="container-details">
-            <h2 data-testid="product-detail-name">{title}</h2>
-            <p>{`R$ ${price}`}</p>
-            <ul className="details">
+            <h2 data-testid="product-detail-name">{ title }</h2>
+            <p>{ `R$ ${price}` }</p>
+            <span>{ `Estoque: ${availableQuantity} `}</span>
+            <ul className="container-list-details">
               {
                 atributos.map(({ name, value_name: value, id }) => (
-                  <li key={ id }>{` ${name}: ${value} `}</li>
+                  <div className="container-item-list" key={ id }>
+                    <li className="item-list">{` ${name}: ${value} `}</li>
+                  </div>
                 ))
               }
-              {/* Estilizar <li> abaixo removendo marca de listagem e
-              aumentando o tamanho da fonte */}
-              <li>
-                {`Quantidade disponível: 
-                ${availableQuantity}`}
-              </li>
             </ul>
+            { freeShipping ? (<h4 data-testid="free-shipping">Frete grátis</h4>) : ('') }
           </div>
         </section>
         <section className="container-evaluation">
           <h1>Avaliações</h1>
           <EvaluationForm />
-          <div className="add-carrinho">
-            <p>{`De: R$ ${totalPrice}`}</p>
-            <p>{`Por: R$ ${price}`}</p>
-            <button
-              data-testid="product-detail-add-to-cart"
-              type="button"
-              onClick={ this.handleClick }
-            >
-              Adicionar ao carrinho
-            </button>
-          </div>
+          {
+            totalPrice ? (
+              <div className="add-carrinho">
+                <p className="discount">{ `De: R$ ${totalPrice}` }</p>
+                <p>{ `Por: R$ ${price}` }</p>
+                <button
+                  data-testid="product-detail-add-to-cart"
+                  type="button"
+                  onClick={ this.handleClick }
+                >
+                  Adicionar ao carrinho
+                </button>
+              </div>
+            ) : (
+              <div className="add-carrinho">
+                <p>{ `Por: R$ ${price}` }</p>
+                <button
+                  data-testid="product-detail-add-to-cart"
+                  type="button"
+                  onClick={ this.handleClick }
+                >
+                  Adicionar ao carrinho
+                </button>
+              </div>
+            )
+          }
         </section>
 
       </section>

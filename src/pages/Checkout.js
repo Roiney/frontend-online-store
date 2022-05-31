@@ -1,76 +1,191 @@
 import React from 'react';
+import FormCheckout from '../components/FormCheckout';
 import { readSavedProducts } from '../services/storageCart';
+import './StyleSheet/Checkout.css';
 
 class Checkout extends React.Component {
   state = {
-    hasItems: false,
+    isFinished: false,
+    filteredProducts: [],
+    products: [],
+    totalPrice: 0,
+    userInfo: {
+      nome: '',
+      cpf: '',
+      email: '',
+      tel: '',
+      cep: '',
+      endereco: '',
+      complemento: '',
+      numero: '',
+      cidade: '',
+      estado: '',
+    },
+    payOption: '',
+    creditCard: '',
   };
 
   componentDidMount() {
-    const produtos = readSavedProducts();
-    if (produtos.length > 0) this.setState({ hasItems: true, produtos });
+    const products = readSavedProducts();
+    const filteredProducts = this.filterProducts(products);
+    const totalPrice = this.calculateTotalPrice(products);
+    this.setState({ products, filteredProducts, totalPrice });
+  }
+
+  filterProducts = (products) => products
+    .map((produto) => JSON.stringify(produto))
+    .filter((produto, index, self) => self.indexOf(produto) === index)
+    .map((produto) => JSON.parse(produto));
+
+    calculateTotalPrice = (products) => products
+      .reduce((accPrice, { price }) => {
+        let novoAcc = accPrice;
+        novoAcc += price;
+        return novoAcc;
+      }, 0);
+
+  handleChangeInfos = ({ target: { value, name } }) => {
+    this.setState((prevState) => ({
+      userInfo: { ...prevState.userInfo, [name]: value },
+    }));
+  }
+
+  handleChangePayment = ({ target: { value, name } }) => {
+    this.setState({ [name]: value }, () => {
+      const { payOption } = this.state;
+      if (payOption === 'Boleto') {
+        this.setState({ creditCard: '' });
+      }
+    });
   }
 
   render() {
-    const { hasItems, produtos, quantidade } = this.state;
+    const {
+      products,
+      filteredProducts,
+      totalPrice,
+      userInfo,
+      payOption,
+      creditCard,
+      isFinished,
+    } = this.state;
     return (
       <div>
-        <h1>Insira seus Dados.</h1>
-        <label htmlFor="inputNome">
-          Digite seu nome completo:
-          <input data-testid="checkout-fullname" id="inputNome" />
-        </label>
-        <label htmlFor="inputemail">
-          Digite seu E-mail:
-          <input data-testid="checkout-email" id="inputemail" />
-        </label>
-        <label htmlFor="inputcpf">
-          Digite seu CPF:
-          <input data-testid="checkout-cpf" id="inputcpf" />
-        </label>
-        <label htmlFor="inputphone">
-          Digite seu Telefone:
-          <input data-testid="checkout-phone" id="inputphone" />
-        </label>
-        <label htmlFor="inputcep">
-          Digite seu CEP:
-          <input data-testid="checkout-cep" id="inputcep" />
-        </label>
-        <label htmlFor="inputaddress">
-          Digite seu Endereço Completo:
-          <input data-testid="checkout-address" id="inputaddress" />
-        </label>
-        {/* <form>
-            <input type="radio" name="Boleto" value="Boleto" />
-            Boleto
-            <input type="radio" name="Visa" value="Visa" />
-            Visa
-            <input type="radio" name="MasterCard" value="MasterCard" />
-            MasterCard
-            <input type="radio" name="Elo" value="Elo" />
-            Elo
-          </form> */}
-        {hasItems ? (
-          <div>
-            <h1>Items do carrinho</h1>
-            {produtos.map(({ title, price, thumbnail, id }) => (
-              <div key={ id }>
-                <h2 data-testid="shopping-cart-product-name">{title}</h2>
-                <img src={ thumbnail } alt={ thumbnail } />
-                <p>{price}</p>
-                <p data-testid="shopping-cart-product-quantity">{quantidade}</p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <h1 data-testid="shopping-cart-empty-message" className="empty-cart">
-            Seu carrinho está vazio
-          </h1>
-        )}
-        <button type="button"> Finalizar Compra</button>
+        {
+          isFinished ? (
+            <section>
+              <h1>Compra realizada com sucesso!</h1>
+              <h3>Obrigado pela preferência! :D</h3>
+            </section>
+          ) : (
+            <main>
+
+              <section className="container-product-list">
+                <h2>Revise seu Produtos</h2>
+                <hr />
+                {filteredProducts.map(({ title, price, thumbnail, id }) => (
+                  <div className="container-product-review" key={ id }>
+                    <div>
+                      <img src={ thumbnail } alt={ thumbnail } />
+                      <h3>{title}</h3>
+                    </div>
+                    <p>
+                      { `Qtd: ${products
+                        .filter(({ id: idProduto }) => idProduto === id).length}` }
+
+                    </p>
+                    <p>{`R$ ${price.toFixed(2)}`}</p>
+                  </div>
+                ))}
+                <p className="totalPrice">{ `Total: R$ ${totalPrice.toFixed(2)}` }</p>
+              </section>
+              <section className="container-info-user">
+                <h2>Informações do Comprador</h2>
+                <hr />
+                <FormCheckout
+                  userInfo={ userInfo }
+                  handleChange={ this.handleChangeInfos }
+                />
+              </section>
+              <section className="container-pay-method">
+                <h2>Método de Pagamento</h2>
+                <hr />
+                <div className="container-pay-options">
+                  <label htmlFor="boletoRadio">
+                    <input
+                      id="boletoRadio"
+                      type="radio"
+                      name="payOption"
+                      value="Boleto"
+                      onChange={ this.handleChangePayment }
+                    />
+                    Boleto
+                  </label>
+                  <label htmlFor="creditoRadio">
+                    <input
+                      id="creditoRadio"
+                      type="radio"
+                      name="payOption"
+                      value="Crédito"
+                      onChange={ this.handleChangePayment }
+                    />
+                    Cartão de Crédito
+                  </label>
+                  <div>
+                    {
+                      payOption === 'Crédito' && (
+                        <section className="container-creditCard">
+                          <label htmlFor="visaRadio">
+                            <input
+                              id="visaRadio"
+                              type="radio"
+                              name="creditCard"
+                              value="Visa"
+                              checked={ creditCard === 'Visa' }
+                              onChange={ this.handleChangePayment }
+                            />
+                            Visa
+                          </label>
+                          <label htmlFor="masterRadio">
+                            <input
+                              id="masterRadio"
+                              type="radio"
+                              name="creditCard"
+                              value="MasterCard"
+                              checked={ creditCard === 'MasterCard' }
+                              onChange={ this.handleChangePayment }
+                            />
+                            MasterCard
+                          </label>
+                          <label htmlFor="eloRadio">
+                            <input
+                              id="eloRadio"
+                              type="radio"
+                              name="creditCard"
+                              value="Elo"
+                              checked={ creditCard === 'Elo' }
+                              onChange={ this.handleChangePayment }
+                            />
+                            Elo
+                          </label>
+                        </section>
+                      )
+                    }
+                  </div>
+                </div>
+              </section>
+              <button className="finish-button" type="button">Comprar</button>
+            </main>
+          )
+        }
       </div>
     );
   }
 }
+// rating: 3,
+
+// const { rating } =this.state
+
+// <i className={ rating >= value && "classe-pinta estrela" }
 
 export default Checkout;
