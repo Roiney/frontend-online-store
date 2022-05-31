@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import React, { Component } from 'react';
 
 class ForgotPassword extends Component {
@@ -11,12 +10,13 @@ class ForgotPassword extends Component {
     this.setState({ [name]: value });
   };
 
-  handleClick = () => {
-    const { email } = this.state;
-    alert(`Nova senha enviada para ${email}`);
-  }
+  // handleClick = () => {
+  //   const { email } = this.state;
+  //   alert(`Nova senha enviada para ${email}`);
+  // }
 
   render() {
+    const { email } = this.state;
     return (
       <div>
         <p>Insira o email cadastrado para recuperar sua senha:</p>
@@ -25,6 +25,7 @@ class ForgotPassword extends Component {
           name="email"
           id="email"
           onChange={ this.getValue }
+          value={ email }
         />
         <input
           type="button"
