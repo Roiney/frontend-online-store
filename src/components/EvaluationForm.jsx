@@ -11,14 +11,11 @@ class EvaluationForm extends Component {
     message: '',
   }
 
-  componentDidMount() {
-    const avaliado = readSavedEvaluations();
+  async componentDidMount() {
+    const savedEvaluations = readSavedEvaluations();
+    this.setState({ evaluations: savedEvaluations });
   }
 
-  componentDidUpdate() {
-    const { evaluations } = this.state;
-    saveEvaluation(evaluations);
-  }
   // showEvaluations = () => {
   //   const { showPreviousEvaluations } = this.state;
   //   this.setState({ showPreviousEvaluations: !showPreviousEvaluations });
@@ -36,7 +33,10 @@ class EvaluationForm extends Component {
     const { email, rating, message } = this.state;
     this.setState((prevState) => ({
       evaluations: [...prevState.evaluations, { email, rating, message }],
-    }));
+    }), () => {
+      const { evaluations } = this.state;
+      saveEvaluation(evaluations);
+    });
   }
 
   render() {
