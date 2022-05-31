@@ -31,6 +31,11 @@
 
 .container-product-review p:nth-of-type( 1 ) {
   margin-right: 30px;
+  width: 70px;
+}
+
+.container-product-review p:nth-of-type( 2 ) {
+  width: 100px;
 }
 
 .totalPrice {
@@ -74,3 +79,19 @@
   cursor: pointer;
 }
 
+
+@media screen and (max-width: 900px) {
+  .container-product-review div h3 {
+    margin-left: 15px;
+    width: 100%;
+  }
+  
+  .container-product-review p:nth-of-type( 1 ) {
+    margin-right: 30px;
+    width: 70px;
+  }
+  
+  .container-product-review p:nth-of-type( 2 ) {
+    width: 100px;
+  }
+}
