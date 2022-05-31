@@ -32,7 +32,7 @@ class ProductDetails extends React.Component {
       imagem: produto.pictures.find((_picture, index) => index === 0).url,
       availableQuantity: produto.available_quantity,
       freeShipping: produto.shipping.free_shipping,
-    }, () => console.log(produto.shipping.free_shipping));
+    });
   }
 
   // Salva produto no LocalStorage

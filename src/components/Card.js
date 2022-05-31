@@ -47,7 +47,7 @@ Card.propTypes = {
   id: PropTypes.string.isRequired,
   produto: PropTypes.shape().isRequired,
   handleAmount: PropTypes.func.isRequired,
-  freeShipping: PropTypes.string.isRequired,
+  freeShipping: PropTypes.bool.isRequired,
 };
 
 export default Card;
