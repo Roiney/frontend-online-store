@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import FormCheckout from '../components/FormCheckout';
 import { readSavedProducts } from '../services/storageCart';
 import './StyleSheet/Checkout.css';
@@ -59,6 +60,10 @@ class Checkout extends React.Component {
     });
   }
 
+  handleClick = () => {
+    this.setState({ isFinished: true });
+  }
+
   render() {
     const {
       products,
@@ -73,13 +78,26 @@ class Checkout extends React.Component {
       <div>
         {
           isFinished ? (
-            <section>
+            <section className="container-finish-message">
               <h1>Compra realizada com sucesso!</h1>
               <h3>Obrigado pela preferência! :D</h3>
+              <div>
+                <Link to="/">
+                  <button
+                    className="return-button"
+                    type="button"
+                  >
+                    Continuar comprando
+                  </button>
+                </Link>
+              </div>
             </section>
           ) : (
             <main>
-
+              <nav className="container-navigation-links">
+                <Link to="/" className="">Home</Link>
+                <Link to="/carrinho">Voltar para carrinho</Link>
+              </nav>
               <section className="container-product-list">
                 <h2>Revise seu Produtos</h2>
                 <hr />
@@ -174,7 +192,13 @@ class Checkout extends React.Component {
                   </div>
                 </div>
               </section>
-              <button className="finish-button" type="button">Comprar</button>
+              <button
+                className="finish-button"
+                type="button"
+                onClick={ this.handleClick }
+              >
+                Comprar
+              </button>
             </main>
           )
         }
