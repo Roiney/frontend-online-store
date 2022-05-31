@@ -59,7 +59,6 @@ handleCategory = (event) => {
   // Ordenar os valores e imprimir na tela
   handlePrint = (response) => {
     const { typePrice } = this.state;
-    console.log('preco', typePrice);
     if (typePrice === 'Recente') {
       this.setState({ produtos: response });
     }
@@ -83,13 +82,11 @@ handleCategory = (event) => {
       });
       this.setState({ produtos: retorno });
     }
-    console.log('passou handlePrint');
   }
 
 // Definir no estado a ordem dos valores
 handlePrice = ({ target }) => {
   const valor = target.value;
-  console.log(valor);
   this.setState({
     typePrice: valor,
   });
