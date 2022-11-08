@@ -1,4 +1,4 @@
-<h1 align="center"> TrybeTunes </h1>
+<h1 align="center"> Projeto Front-End Online Store! </h1>
 
 Neste projeto foi criado, em grupo, uma versão simplificada, sem persistência no banco de dados, de uma **loja online**, desenvolvendo em grupo suas funcionalidades de acordo com demandas definidas em um quadro _Kanban_.
 
